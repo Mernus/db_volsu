@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+psycopg2-binary = "*"
+tqdm = "*"
+django-debug-toolbar = "*"
+django-environ = "*"
+pylibmc = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+cs = "python manage.py collectstatic"
+server = "python manage.py runserver"
