@@ -22,8 +22,8 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "uranami.pythonanywhere.com"]
-INTERNAL_IPS = ('127.0.0.1', 'localhost', "uranami.pythonanywhere.com")
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "uranami.pythonanywhere.com", "dbvolsu.herokuapp.com"]
+INTERNAL_IPS = ('127.0.0.1', 'localhost', "uranami.pythonanywhere.com", "dbvolsu.herokuapp.com")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
