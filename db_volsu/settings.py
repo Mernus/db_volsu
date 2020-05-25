@@ -6,10 +6,12 @@ SECRET_KEY = 'sbvi4%!mhqy#$infbk1anbr0c7k0iwlmim2v%2+h+1uwe2a=ul'
 
 DEBUG = True
 
+CACHE_TTL = 60 * 10
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://localhost:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },
@@ -17,7 +19,8 @@ CACHES = {
     }
 }
 
-CACHE_TTL = 60 * 10
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "uranami.pythonanywhere.com"]
 INTERNAL_IPS = ('127.0.0.1', 'localhost', "uranami.pythonanywhere.com")
@@ -29,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
