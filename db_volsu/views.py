@@ -1,6 +1,12 @@
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
+@cache_page(CACHE_TTL)
 def base_page(request):
     if request.method == "GET":
         if request.session.is_empty():
@@ -9,11 +15,9 @@ def base_page(request):
         return render(request, 'database.html')
 
     key_set = ("host", "database", "user", "password", "port")
-    session_data = {key: request.POST[key] for key in key_set}
+    cache_data = {key: request.POST[key] for key in key_set}
 
-    session_cache = request.session._session_cache;
-
-    for element in session_data.items():
-        session_cache[element[0]] = element[1]
+    # for element in cache_data.items():
+    # cache_client.set(*element)
 
     return render(request, 'database.html')

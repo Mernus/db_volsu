@@ -7,13 +7,17 @@ SECRET_KEY = 'sbvi4%!mhqy#$infbk1anbr0c7k0iwlmim2v%2+h+1uwe2a=ul'
 DEBUG = True
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "conn_params"
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+CACHE_TTL = 60 * 10
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
