@@ -19,8 +19,8 @@ CACHES = {
 
 CACHE_TTL = 60 * 10
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
-INTERNAL_IPS = ('127.0.0.1', 'localhost')
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "uranami.pythonanywhere.com"]
+INTERNAL_IPS = ('127.0.0.1', 'localhost', "uranami.pythonanywhere.com")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
