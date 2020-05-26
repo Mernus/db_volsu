@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
 
-CACHE_TTL = os.environ.get('DEFAULT_CACHE_TTL')
+CACHE_TTL = 60*15
 
 CACHES = {
     "default": {
