@@ -7,10 +7,11 @@ verify_ssl = true
 
 [packages]
 django = "*"
-psycopg2-binary = "*"
 django-debug-toolbar = "*"
 django-redis = "*"
 djangorestframework = "*"
+gunicorn = "*"
+libpq-dev = "*"
 
 [requires]
 python_version = "3.8"
