@@ -1,1 +1,1 @@
-web: gunicorn dv_volsu.wsgi
+web: gunicorn db_volsu.wsgi
