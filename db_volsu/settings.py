@@ -2,11 +2,10 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'sbvi4%!mhqy#$infbk1anbr0c7k0iwlmim2v%2+h+1uwe2a=ul'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG')
 
-DEBUG = True
-
-CACHE_TTL = 60 * 10
+CACHE_TTL = os.environ.get('DEFAULT_CACHE_TTL')
 
 CACHES = {
     "default": {
@@ -19,8 +18,8 @@ CACHES = {
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+SESSION_ENGINE = os.environ.get('SESSION_ENGINE')
+SESSION_CACHE_ALIAS = os.environ.get('SESSION_CACHE_ALIAS')
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "uranami.pythonanywhere.com", "dbvolsu.herokuapp.com"]
 INTERNAL_IPS = ('127.0.0.1', 'localhost', "uranami.pythonanywhere.com", "dbvolsu.herokuapp.com")
