@@ -1,0 +1,1 @@
+web: gunicorn dv_volsu.wsgi
