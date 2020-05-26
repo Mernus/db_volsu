@@ -11,7 +11,7 @@ django-debug-toolbar = "*"
 django-redis = "*"
 djangorestframework = "*"
 gunicorn = "*"
-libpq-dev = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.8"
