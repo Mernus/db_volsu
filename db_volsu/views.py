@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.shortcuts import render
 
 from db_volsu.configs import params
+from db_volsu import settings
 
 
 def base_page(request):
@@ -14,7 +15,7 @@ def base_page(request):
 
         return render(request, 'database.html')
 
-    key_set = os.environ.get('CONNECTION_PARAMS')
+    key_set = settings.CONNECTION_PARAMS
     cache_data = {key: request.POST[key] for key in key_set}
 
     if not cache_data:
@@ -28,7 +29,7 @@ def base_page(request):
             cache_data.update(dict_params)
 
     # TODO: проверить, что есть все данные, в противном случае слать в жопу
-    cache_timeout = os.environ.get('CACHE_TTL')
+    cache_timeout = settings.CACHE_TTL
     cache.set_many(cache_data, timeout=cache_timeout)
 
     return render(request, 'database.html')
