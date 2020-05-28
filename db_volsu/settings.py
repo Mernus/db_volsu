@@ -4,8 +4,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG')
+CONNECTION_PARAMS = {"host", "database", "user", "password", "port"}
 
-CACHE_TTL = 60*15
+CACHE_TTL = 60 * 30
 
 CACHES = {
     "default": {

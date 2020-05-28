@@ -1,17 +1,34 @@
+import os
+from configparser import ConfigParser
+
+from django.core.cache import cache
 from django.shortcuts import render
+
+from db_volsu.configs import params
 
 
 def base_page(request):
     if request.method == "GET":
-        if request.session.is_empty():
+        if cache.get("host", None) is None:
             return render(request, 'login_page.html')
 
         return render(request, 'database.html')
 
-    key_set = ("host", "database", "user", "password", "port")
+    key_set = os.environ.get('CONNECTION_PARAMS')
     cache_data = {key: request.POST[key] for key in key_set}
 
-    # for element in cache_data.items():
-    # cache_client.set(*element)
+    if not cache_data:
+        parser = ConfigParser()
+        parser.read(params.DEFAULTS_INI_FILE_PATH)
+
+        if parser.has_section(params.DEFAULTS_SECTION_NAME):
+            db_params = parser.items(section=params.DEFAULTS_SECTION_NAME)
+            dict_params = {parameter[0]: parameter[1] for parameter in db_params}
+
+            cache_data.update(dict_params)
+
+    # TODO: проверить, что есть все данные, в противном случае слать в жопу
+    cache_timeout = os.environ.get('CACHE_TTL')
+    cache.set_many(cache_data, timeout=cache_timeout)
 
     return render(request, 'database.html')
