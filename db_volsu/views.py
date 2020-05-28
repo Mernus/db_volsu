@@ -2,6 +2,7 @@ from configparser import ConfigParser
 
 from django.core.cache import cache
 from django.shortcuts import render
+import os
 
 from db_volsu import settings
 from db_volsu.configs import params
@@ -20,7 +21,7 @@ def base_page(request):
 
     if cache.get("host", None) is None:
         parser = ConfigParser()
-        parser.read(params.DEFAULTS_INI_FILE_PATH)
+        parser.read(os.path.join(settings.BASE_DIR, "db_volsu/configs/database_defaults.ini"))
 
         dict_params = {}
         if parser.has_section(params.DEFAULTS_SECTION_NAME):
