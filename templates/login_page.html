@@ -11,13 +11,13 @@
         window.scrollTo(0, 1);
     } </script>
 
+    <script src="https://kit.fontawesome.com/8d6423d7fb.js" crossorigin="anonymous"></script>
+    <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+
     {% load static %}
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
-
-    <script src="https://kit.fontawesome.com/8d6423d7fb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="all" href={% static "login_page/css/style.css" %}>
-
-    <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+    <script src="{% static 'login_page/js/load_defaults.js' %}"></script>
 
 </head>
 <body>
@@ -55,6 +55,9 @@
             </div>
             <div class="btnn">
                 <button type="submit">Login</button>
+                <span>{{ host }}</span>
+                <span>{{ context }}</span>
+                <button type="button">Load defaults</button>
             </div>
         </div>
     </form>

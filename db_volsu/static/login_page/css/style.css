@@ -59,7 +59,7 @@ input[name="password"]:hover, input[name="port"]:hover {
     border: 1px solid #6755C9;
 }
 
-button[type=submit] {
+button {
     width: 100%;
     background: #4baeea;
     outline: none;
@@ -125,7 +125,7 @@ form > h1{
 
 .login-w3ls {
     display: block;
-    padding: 5% 15% 10% 15%;
+    padding: 5% 15% 5% 15%;
 }
 
 .icons {
