@@ -22,6 +22,7 @@ def base_page(request):
         parser = ConfigParser()
         parser.read(params.DEFAULTS_INI_FILE_PATH)
 
+        dict_params = {}
         if parser.has_section(params.DEFAULTS_SECTION_NAME):
             db_params = parser.items(section=params.DEFAULTS_SECTION_NAME)
             dict_params = {parameter[0]: parameter[1] for parameter in db_params}
