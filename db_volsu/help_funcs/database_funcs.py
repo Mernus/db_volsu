@@ -1,10 +1,29 @@
+from collections import namedtuple
 from configparser import ConfigParser
 
 import psycopg2
+from django.core.cache import cache
 
+from db_volsu import settings
 from db_volsu.configs import params
 from db_volsu.help_funcs.exceptions import BadSectionName
 from db_volsu.help_funcs.print_funcs import print_success, print_info
+
+
+def namedtuplefetchall(cursor):
+    desc = cursor.description
+    nt_result = namedtuple('Result', [col[0] for col in desc])
+    return [nt_result(*row) for row in cursor.fetchall()]
+
+
+def get_context(connection):
+    with connection.cursor() as cursor:
+        sql_raw = "SELECT bus_schema.bus.id, bus_type.firm, bus_type.seria FROM bus_schema.bus " \
+                  "LEFT JOIN bus_schema.bus_depot AS bus_type ON bus_type.id = bus_schema.bus.bus_type_id"
+        cursor.execute(sql_raw)
+        result = namedtuplefetchall(cursor)
+
+    return result
 
 
 def get_params_from_config(*, ini_file: str = params.DEFAULTS_INI_FILE_PATH,
