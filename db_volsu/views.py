@@ -43,7 +43,7 @@ def database(request):
         key_set = settings.CONNECTION_PARAMS
         params = cache.get_many(key_set)
         if not params:
-            return render(request, 'login_page.html')
+            return redirect("/")
 
         print_info("Connecting to database")
         connection = psycopg2.connect(**params)
