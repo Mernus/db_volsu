@@ -17,8 +17,14 @@ def base_page(request):
     if request.method == "POST":
         key_set = settings.CONNECTION_PARAMS
         cache_data = {key: request.POST[key] for key in key_set}
+        if not cache_data:
+            return redirect("/")
 
         # TODO: проверить, что есть все данные, в противном случае слать в жопу
+        if cache_data['host'] == "localhost" and cache_data['port'] == "5432":
+            cache_data['host'] = os.environ.get('host')
+            cache_data['port'] = os.environ.get('port')
+
         cache_timeout = settings.CACHE_TTL
         cache.set_many(cache_data, timeout=cache_timeout)
 
