@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from db_volsu import settings
 from db_volsu.configs import params
 from db_volsu.help_funcs.database_funcs import get_context
-from db_volsu.help_funcs.print_funcs import print_success, print_info
+from db_volsu.help_funcs.print_funcs import print_success, print_info, print_error
 
 
 def base_page(request):
@@ -61,3 +61,28 @@ def database(request):
             print_success("Connection was closed")
 
     return render(request, 'database.html', context={"depos_info": depos_info})
+
+
+def update_defaults(request):
+    if request.method != "POST":
+        print_error("Bad request for update defaults")
+        return
+
+    update_data = {key: request.POST[key] for key in ["host", "port"]}
+    parser = ConfigParser()
+
+    print_info("Updating defaults parameters")
+    ini_file = params.DEFAULTS_INI_FILE_PATH
+    parser.read(ini_file)
+    print_success("Config readed")
+
+    db_section = params.CONNECTION_SECTION_NAME
+    if parser.has_section(db_section):
+        for option, value in update_data.items():
+            parser.set(db_section, option, value)
+
+        with open(ini_file, "wb") as config_file:
+            parser.write(config_file)
+        print_success("Default params was updated")
+    else:
+        print_error("Bad section name for update defaults request")
