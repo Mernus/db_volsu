@@ -74,20 +74,20 @@ def update_defaults(request):
     update_data = {key: request.POST[key] for key in ["host", "port"]}
     parser = ConfigParser()
 
-    print_info("Updating defaults parameters")
+    print("Updating defaults parameters")
     ini_file = params.DEFAULTS_INI_FILE_PATH
     parser.read(ini_file)
-    print_success("Config readed")
+    print("Config readed")
 
-    db_section = params.CONNECTION_SECTION_NAME
+    db_section = params.DEFAULTS_SECTION_NAME
     if parser.has_section(db_section):
         for option, value in update_data.items():
             parser.set(db_section, option, value)
 
         with open(ini_file, "wb") as config_file:
             parser.write(config_file)
-        print_success("Default params was updated")
+        print("Default params was updated")
         return HttpResponse("Updated")
 
-    print_error("Bad section name for update defaults request")
+    print("Bad section name for update defaults request")
     return HttpResponse("Bad request")
