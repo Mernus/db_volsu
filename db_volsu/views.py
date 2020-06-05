@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from db_volsu import settings
 from db_volsu.configs import params
 from db_volsu.help_funcs.database_funcs import get_context
-from db_volsu.help_funcs.print_funcs import print_success, print_info, print_error
+from db_volsu.help_funcs.print_funcs import print_success, print_info
 
 
 def base_page(request):
@@ -68,26 +68,15 @@ def database(request):
 @csrf_exempt
 def update_defaults(request):
     if request.method != "POST":
-        print_error("Bad request for update defaults")
-        return HttpResponse("Bad request")
+        print("Bad request for update defaults")
+        return HttpResponse("Bad request method")
 
     update_data = {key: request.POST[key] for key in ["host", "port"]}
-    parser = ConfigParser()
+    if not update_data:
+        print("Bad request for update defaults")
+        return HttpResponse("Bad data in request")
 
-    print("Updating defaults parameters")
-    ini_file = params.DEFAULTS_INI_FILE_PATH
-    parser.read(ini_file)
-    print("Config readed")
+    for option, value in update_data.items():
+        os.environ[option] = value
 
-    db_section = params.DEFAULTS_SECTION_NAME
-    if parser.has_section(db_section):
-        for option, value in update_data.items():
-            parser.set(db_section, option, value)
-
-        with open(ini_file, "wb") as config_file:
-            parser.write(config_file)
-        print("Default params was updated")
-        return HttpResponse("Updated")
-
-    print("Bad section name for update defaults request")
-    return HttpResponse("Bad request")
+    return HttpResponse("All ok")
