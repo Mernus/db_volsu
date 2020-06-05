@@ -4,6 +4,7 @@ from configparser import ConfigParser
 import psycopg2
 from django.core.cache import cache
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 from db_volsu import settings
 from db_volsu.configs import params
@@ -63,6 +64,7 @@ def database(request):
     return render(request, 'database.html', context={"depos_info": depos_info})
 
 
+@csrf_exempt
 def update_defaults(request):
     if request.method != "POST":
         print_error("Bad request for update defaults")
