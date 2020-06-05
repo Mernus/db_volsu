@@ -3,6 +3,7 @@ from configparser import ConfigParser
 
 import psycopg2
 from django.core.cache import cache
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -68,7 +69,7 @@ def database(request):
 def update_defaults(request):
     if request.method != "POST":
         print_error("Bad request for update defaults")
-        return
+        return HttpResponse("Bad request")
 
     update_data = {key: request.POST[key] for key in ["host", "port"]}
     parser = ConfigParser()
@@ -86,5 +87,7 @@ def update_defaults(request):
         with open(ini_file, "wb") as config_file:
             parser.write(config_file)
         print_success("Default params was updated")
-    else:
-        print_error("Bad section name for update defaults request")
+        return HttpResponse("Updated")
+
+    print_error("Bad section name for update defaults request")
+    return HttpResponse("Bad request")
