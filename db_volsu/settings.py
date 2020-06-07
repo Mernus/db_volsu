@@ -6,7 +6,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 HEROKU_DEBUG = 1
 HEROKU_DEBUG_HEADERS = 1
-CONNECTION_PARAMS = {"host", "database", "user", "password", "port"}
 
 CACHE_TTL = 60 * 30
 

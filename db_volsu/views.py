@@ -15,15 +15,15 @@ from db_volsu.help_funcs.print_funcs import print_success, print_info
 
 def base_page(request):
     if request.method == "POST":
-        key_set = settings.CONNECTION_PARAMS
+        key_set = params.CONNECTION_PARAMS
         cache_data = {key: request.POST[key] for key in key_set}
         if not cache_data:
             return redirect("/")
 
         # TODO: проверить, что есть все данные, в противном случае слать в жопу
         if cache_data['host'] == "localhost" and cache_data['port'] == "5432":
-            cache_data['host'] = os.environ.get('host')
-            cache_data['port'] = os.environ.get('port')
+            cache_data.pop('host')
+            cache_data.pop('port')
 
         cache_timeout = settings.CACHE_TTL
         cache.set_many(cache_data, timeout=cache_timeout)
@@ -48,16 +48,16 @@ def database(request):
     connection = None
     depos_info = []
     try:
-        key_set = settings.CONNECTION_PARAMS
-        params = cache.get_many(key_set)
-        if not params:
+        key_set = params.CONNECTION_PARAMS
+        con_params = cache.get_many(key_set)
+        if not con_params:
             return redirect("/")
 
         print_info("Connecting to database")
-        connection = psycopg2.connect(**params)
+        connection = psycopg2.connect(**con_params)
         print_success("Connection was established")
 
-        depos_info = get_context(connection)
+        depos_info = get_context(connection, params.SCHEDULE_RAW)
 
     except (Exception, psycopg2.Error) as exception:
         print(exception)
@@ -82,7 +82,6 @@ def update_defaults(request):
         print("Bad request for update defaults")
         return HttpResponse("Bad data in request")
 
-    for option, value in update_data.items():
-        os.environ[option] = value
+    cache.set_many(update_data, timeout=None)
 
     return HttpResponse("All ok")
