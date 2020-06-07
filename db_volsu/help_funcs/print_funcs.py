@@ -5,7 +5,7 @@ def print_success(unformatted_string: str) -> None:
     :param unformatted_string:
     """
 
-    print("\033[32m [SUCCESS]: {} \033[0m".format(unformatted_string))
+    print(" [SUCCESS]: {}".format(unformatted_string))
 
 
 def print_error(unformatted_string: str) -> None:
@@ -15,7 +15,7 @@ def print_error(unformatted_string: str) -> None:
     :param unformatted_string:
     """
 
-    print("\033[31m [ERROR]: {} \033[0m".format(unformatted_string))
+    print(" [ERROR]: {}".format(unformatted_string))
 
 
 def print_info(unformatted_string: str) -> None:

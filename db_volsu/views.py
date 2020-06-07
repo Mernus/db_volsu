@@ -10,7 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 from db_volsu import settings
 from db_volsu.configs import params
 from db_volsu.help_funcs.database_funcs import get_context
-from db_volsu.help_funcs.print_funcs import print_success, print_info
+from db_volsu.help_funcs.exceptions import BadConnectionCredentials
+from db_volsu.help_funcs.print_funcs import print_success, print_info, print_error
 
 
 def base_page(request):
@@ -30,7 +31,7 @@ def base_page(request):
 
         return redirect("/database/")
 
-    if cache.get("host", None) is None:
+    if cache.get("database", None) is None:
         parser = ConfigParser()
         parser.read(os.path.join(settings.BASE_DIR, "db_volsu/configs/database_defaults.ini"))
 
@@ -46,7 +47,6 @@ def base_page(request):
 
 def database(request):
     connection = None
-    depos_info = []
     try:
         key_set = params.CONNECTION_PARAMS
         con_params = cache.get_many(key_set)
@@ -55,15 +55,20 @@ def database(request):
 
         print_info("Connecting to database")
         connection = psycopg2.connect(**con_params)
+        if connection is None:
+            print_error("Bad credentials for database connection")
+            raise BadConnectionCredentials
+
         print_success("Connection was established")
 
         depos_info = get_context(connection, params.SCHEDULE_RAW)
 
-    except (Exception, psycopg2.Error) as exception:
-        print(exception)
+    except (BadConnectionCredentials, psycopg2.Error):
+        cache.delete_many(["database", "user", "password"])
+        return redirect("/")
 
     finally:
-        if connection is not None and not connection.closed:
+        if not connection.closed:
             print_info("Disconnecting from database")
             connection.close()
             print_success("Connection was closed")
