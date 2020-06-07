@@ -83,6 +83,8 @@ def update_defaults(request):
         return HttpResponse("Bad request method")
 
     update_data = {key: request.POST[key] for key in ["host", "port"]}
+    print(update_data)
+    print(request.POST)
     if not update_data:
         print("Bad request for update defaults")
         return HttpResponse("Bad data in request")
