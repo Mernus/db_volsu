@@ -51,7 +51,8 @@ def database(request):
     try:
         key_set = params.CONNECTION_PARAMS
         con_params = cache.get_many(key_set)
-        print("con_params " + str(con_params))
+        print("*con_params " + str(*con_params))
+        print("**con_params " + str(**con_params))
         if not con_params:
             return redirect("/")
 
@@ -65,8 +66,9 @@ def database(request):
 
         depos_info = get_context(connection, params.SCHEDULE_RAW)
 
-    except (BadConnectionCredentials, psycopg2.Error):
+    except (BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
+        print_error(exception)
         return redirect("/")
 
     finally:
