@@ -15,9 +15,7 @@ from db_volsu.help_funcs.print_funcs import print_success, print_info, print_err
 def base_page(request):
     if request.method == "POST":
         key_set = params.CONNECTION_PARAMS
-        print("host " + str(cache.get('host', None)))
         cache_data = {key: request.POST[key] for key in key_set}
-        print("cachedata " + str(cache_data))
         if not cache_data:
             return redirect("/")
 
@@ -26,7 +24,6 @@ def base_page(request):
             cache_data.pop('host')
             cache_data.pop('port')
 
-        print("cachedata " + str(cache_data))
         cache_timeout = settings.CACHE_TTL
         cache.set_many(cache_data, timeout=cache_timeout)
 
@@ -51,8 +48,6 @@ def database(request):
     try:
         key_set = params.CONNECTION_PARAMS
         con_params = cache.get_many(key_set)
-        print("*con_params " + str(*con_params))
-        print("**con_params " + str(**con_params))
         if not con_params:
             return redirect("/")
 
