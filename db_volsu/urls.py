@@ -2,14 +2,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from db_volsu.api import urls
 from db_volsu.views import base_page, database
 
 urlpatterns = [
     path('', base_page),
     path('database/', database),
     path('admin/', admin.site.urls),
-    path('api/', urls),
+    path('api/', include('db_volsu.api.urls')),
 ]
 
 if settings.DEBUG:
