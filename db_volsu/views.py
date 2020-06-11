@@ -3,9 +3,7 @@ from configparser import ConfigParser
 
 import psycopg2
 from django.core.cache import cache
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 
 from db_volsu import settings
 from db_volsu.configs import params
@@ -78,19 +76,3 @@ def database(request):
             print_success("Connection was closed")
 
     return render(request, 'database.html', context={"depos_info": depos_info})
-
-
-@csrf_exempt
-def update_defaults(request):
-    if request.method != "POST":
-        print("Bad request for update defaults")
-        return HttpResponse("Bad request method")
-
-    update_data = {key: request.POST[key] for key in ["host", "port"]}
-    if not update_data:
-        print("Bad request for update defaults")
-        return HttpResponse("Bad data in request")
-
-    cache.set_many(update_data, timeout=None)
-
-    return HttpResponse("All ok")

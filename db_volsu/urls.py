@@ -2,13 +2,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from db_volsu.views import base_page, database, update_defaults
+from db_volsu import api
+from db_volsu.views import base_page, database
 
 urlpatterns = [
     path('', base_page),
     path('database/', database),
     path('admin/', admin.site.urls),
-    path('def_update/', update_defaults)
+    path('api/', api.urls),
 ]
 
 if settings.DEBUG:
