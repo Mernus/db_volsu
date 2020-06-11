@@ -10,12 +10,13 @@ USER_DATA_RAW = "SELECT * FROM bus_schema.user_data"
 
 STATION_RAW = "SELECT * FROM bus_schema.station"
 
-BUS_RAW = "SELECT bus_schema.bus.id, bus_type.firm, bus_type.seria FROM bus_schema.bus " \
+BUS_RAW = "SELECT bus_schema.bus.id AS bus_id, bus_type.firm AS bus_firm, " \
+          "bus_type.seria AS bus_seria FROM bus_schema.bus " \
           "LEFT JOIN bus_schema.bus_depot AS bus_type ON bus_type.id = bus_schema.bus.bus_type_id"
 
-SCHEDULE_RAW = "SELECT bus_schema.schedule.id, " \
-               "bus_schema.schedule.departure, dep_station.station_name, " \
-               "bus_schema.schedule.arrival, arr_station.station_name, " \
+SCHEDULE_RAW = "SELECT bus_schema.schedule.id AS shedule_id, " \
+               "bus_schema.schedule.departure AS dep_station_time, dep_station.station_name AS dep_station_name, " \
+               "bus_schema.schedule.arrival AS arr_station_time, arr_station.station_name AS arr_station_name, " \
                "bus.id, bus.firm, bus.seria " \
                "FROM bus_schema.schedule " \
                "LEFT JOIN bus_schema.station AS dep_station ON dep_station.id = bus_schema.schedule.point_of_departure_id " \
@@ -27,12 +28,12 @@ SCHEDULE_RAW = "SELECT bus_schema.schedule.id, " \
                ") " \
                "AS bus ON bus.id = bus_schema.schedule.bus_id"
 
-TICKET_RAW = "SELECT bus_schema.ticket.id, " \
-             "user_d.name, user_d.surname, user_d.mail, " \
+TICKET_RAW = "SELECT bus_schema.ticket.id AS ticket_id, " \
+             "user_d.name AS customer_name, user_d.surname AS customer_surname, user_d.mail AS customer_mail, " \
              "bus_schema.ticket.passenger_name, bus_schema.ticket.passenger_surname, " \
-             "arr_station.st_time, arr_station.st_name, " \
-             "dep_station.st_time, dep_station.st_name, " \
-             "bus_schema.ticket.cost " \
+             "arr_station.st_time AS arr_station_time, arr_station.st_name AS arr_station_name, " \
+             "dep_station.st_time AS dep_station_time, dep_station.st_name AS dep_station_name, " \
+             "bus_schema.ticket.cost AS ticket_cost " \
              "FROM bus_schema.ticket " \
              "LEFT JOIN bus_schema.user_data AS user_d ON user_d.id = bus_schema.ticket.buyer_id " \
              "LEFT JOIN " \
