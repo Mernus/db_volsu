@@ -65,12 +65,12 @@ def database(request):
 
         depos_info = get_context(connection, params.SCHEDULE_RAW)
 
-    except (Exception, psycopg2.Error):
+    except (BadConnectionCredentials, psycopg2.Error):
         cache.delete_many(["database", "user", "password"])
         return redirect("/")
 
     finally:
-        if not connection.closed:
+        if connection and not connection.closed:
             print_info("Disconnecting from database")
             connection.close()
             print_success("Connection was closed")
