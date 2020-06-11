@@ -65,7 +65,7 @@ def database(request):
 
         depos_info = get_context(connection, params.SCHEDULE_RAW)
 
-    except (BadConnectionCredentials, psycopg2.Error):
+    except (Exception, psycopg2.Error):
         cache.delete_many(["database", "user", "password"])
         return redirect("/")
 
