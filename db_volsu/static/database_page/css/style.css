@@ -1,7 +1,7 @@
 #navs {
     width: 70%;
     margin: 10% auto;
-    padding: 10px;
+    padding: 1.5em;
     border-radius: 20px;
     background-size: cover;
     display: block;
@@ -13,9 +13,10 @@
 
 a {
     text-decoration: none;
-    font-family: 'Metal Mania', cursive;
+    font-family: 'Bellota', cursive;
     font-size: 1.3em;
     color: black;
+
 }
 
 a:hover {
