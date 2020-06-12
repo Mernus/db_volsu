@@ -1,6 +1,6 @@
 #navs {
     width: 70%;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 1.5em;
     border-radius: 20px;
     background-size: cover;
@@ -22,4 +22,8 @@ a {
 a:hover {
     text-decoration: none;
     color: inherit;
+}
+
+#dtBasic {
+    margin: 2em 0;
 }
