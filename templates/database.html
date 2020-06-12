@@ -29,14 +29,6 @@
     <!-- MDB css -->
     <link rel="stylesheet" href="{% static "MDB/css/mdb.min.css" %}">
     <link rel="stylesheet" href="{% static "MDB/css/style.css" %}">
-    <!-- MDB js -->
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#dtBasic').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
-    </script>
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" media="all" href={% static "database_page/css/style.css" %}>
 </head>
@@ -130,6 +122,14 @@
         </tr>
         </tfoot>
     </table>
+    <!-- MDB js -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dtBasic').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
 </div>
 </body>
 </html>
