@@ -1,14 +1,17 @@
 #navs {
     width: 50%;
     margin: 10% auto;
+    padding: 10px;
     border-radius: 20px;
     background-size: cover;
-    display: -webkit-flex;
-    display: flex;
+    display: block;
     -webkit-justify-content: space-between;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
     -webkit-box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
     -moz-box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
     box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
+}
+
+a {
+    text-decoration: none;
+    font-family: 'Metal Mania', cursive;
 }
