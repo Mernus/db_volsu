@@ -23,8 +23,36 @@
 
     {% load static %}
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
+    <link rel="stylesheet" type="text/css" media="all" href={% static "database_page/css/style.css" %}>
 </head>
 <body>
-<div>{{ depos_info }}</div>
+<div id="navs">
+    <nav>
+        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="#nav-bus_depot"
+               role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
+            <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="#nav-user_data" role="tab"
+               aria-controls="nav-user_data" aria-selected="false">Active users</a>
+            <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="#nav-station" role="tab"
+               aria-controls="nav-station" aria-selected="false">Active stations</a>
+            <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="#nav-bus" role="tab"
+               aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
+            <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="#nav-schedule" role="tab"
+               aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
+            <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="#nav-ticket" role="tab"
+               aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel" aria-labelledby="nav-bus_depot-tab">
+            ...
+        </div>
+        <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">...</div>
+        <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">...</div>
+        <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">...</div>
+        <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">...</div>
+        <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">...</div>
+    </div>
+</div>
 </body>
 </html>
