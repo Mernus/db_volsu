@@ -24,65 +24,112 @@
     <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@700&display=swap" rel="stylesheet">
 
     {% load static %}
+    <!-- Icons -->
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
+    <!-- MDB css -->
+    <link rel="stylesheet" href="{% static "MDB/css/mdb.min.css" %}">
+    <link rel="stylesheet" href="{% static "MDB/css/style.css" %}">
+    <!-- MDB js -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dtBasic').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+    <!-- Custom css -->
     <link rel="stylesheet" type="text/css" media="all" href={% static "database_page/css/style.css" %}>
 </head>
 <body>
 <div id="navs">
-    <nav>
-        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="#nav-bus_depot"
-               role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
-            <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="#nav-user_data" role="tab"
-               aria-controls="nav-user_data" aria-selected="false">Active users</a>
-            <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="#nav-station" role="tab"
-               aria-controls="nav-station" aria-selected="false">Active stations</a>
-            <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="#nav-bus" role="tab"
-               aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
-            <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="#nav-schedule" role="tab"
-               aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
-            <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="#nav-ticket" role="tab"
-               aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel" aria-labelledby="nav-bus_depot-tab">
-            <table id="dtBasic" class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">...</div>
-        <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">...</div>
-        <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">...</div>
-        <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">...</div>
-        <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">...</div>
-    </div>
+    <table id="dtBasic" class="table table-striped table-bordered table-sm">
+        <thead>
+        <tr>
+            <th class="th-sm">Name</th>
+            <th class="th-sm">Position</th>
+            <th class="th-sm">Office</th>
+            <th class="th-sm">Age</th>
+            <th class="th-sm">Start date</th>
+            <th class="th-sm">Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+        </tr>
+        <tr>
+            <td>Garrett Winters</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>63</td>
+            <td>2011/07/25</td>
+            <td>$170,750</td>
+        </tr>
+        <tr>
+            <td>Ashton Cox</td>
+            <td>Junior Technical Author</td>
+            <td>San Francisco</td>
+            <td>66</td>
+            <td>2009/01/12</td>
+            <td>$86,000</td>
+        </tr>
+        <tr>
+            <td>Cedric Kelly</td>
+            <td>Senior Javascript Developer</td>
+            <td>Edinburgh</td>
+            <td>22</td>
+            <td>2012/03/29</td>
+            <td>$433,060</td>
+        </tr>
+        <tr>
+            <td>Airi Satou</td>
+            <td>Accountant</td>
+            <td>Tokyo</td>
+            <td>33</td>
+            <td>2008/11/28</td>
+            <td>$162,700</td>
+        </tr>
+        <tr>
+            <td>Brielle Williamson</td>
+            <td>Integration Specialist</td>
+            <td>New York</td>
+            <td>61</td>
+            <td>2012/12/02</td>
+            <td>$372,000</td>
+        </tr>
+        <tr>
+            <td>Herrod Chandler</td>
+            <td>Sales Assistant</td>
+            <td>San Francisco</td>
+            <td>59</td>
+            <td>2012/08/06</td>
+            <td>$137,500</td>
+        </tr>
+        <tr>
+            <td>Rhona Davidson</td>
+            <td>Integration Specialist</td>
+            <td>Tokyo</td>
+            <td>55</td>
+            <td>2010/10/14</td>
+            <td>$327,900</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+        </tfoot>
+    </table>
 </div>
 </body>
 </html>
