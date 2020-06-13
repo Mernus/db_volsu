@@ -59,7 +59,7 @@ def database(request):
 
         print_success("Connection was established")
 
-        depos_info = get_context(connection, params.SCHEDULE_RAW)
+        result = get_context(request, connection, params.SCHEDULE_RAW)
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -72,4 +72,4 @@ def database(request):
             connection.close()
             print_success("Connection was closed")
 
-    return render(request, 'database.html', context={"depos_info": depos_info})
+    return render(request, 'database.html', context={"result": result})

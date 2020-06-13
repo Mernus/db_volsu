@@ -1,5 +1,7 @@
 from collections import namedtuple
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 
 def namedtuplefetchall(cursor):
     desc = cursor.description
@@ -7,9 +9,19 @@ def namedtuplefetchall(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-def get_context(connection, sql_raw):
+def get_context(request, connection, sql_raw):
     with connection.cursor() as cursor:
         cursor.execute(sql_raw)
         result = namedtuplefetchall(cursor)
 
-    return result
+    paginator = Paginator(result, 2)
+    page_number = request.GET.get('page')
+
+    try:
+        page_result = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_result = paginator.get_page(1)
+    except EmptyPage:
+        page_result = paginator.get_page(paginator.num_pages)
+
+    return page_result
