@@ -23,3 +23,7 @@ a:hover {
     text-decoration: none;
     color: inherit;
 }
+
+#menu {
+    margin-bottom: 2em;
+}
