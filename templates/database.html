@@ -283,7 +283,7 @@
         </nav>
     </div>
     <script>
-        $(".nav-link").on("click", function () {
+        $(".nav-link").on("mousedown", function () {
             let temp_href = document.getElementsByClassName("active")[0].href;
             let temp_index = temp_href.indexOf("#");
             let temp_str = temp_href.slice(temp_index);
