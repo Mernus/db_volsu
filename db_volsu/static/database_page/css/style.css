@@ -45,3 +45,8 @@ a:hover {
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
