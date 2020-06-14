@@ -25,11 +25,11 @@ a:hover {
 }
 
 #menu {
-    margin: 0 12% 2em 12%;
+    margin: 0 13% 2em 13%;
 }
 
 #menu > a {
-    padding: 0.2em;
+    padding: 0.1em;
     border: 1px solid black;
 }
 

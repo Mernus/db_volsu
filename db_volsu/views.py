@@ -60,6 +60,7 @@ def get_table(request):
         print_success("Connection was established")
 
         raw_id = request.GET.get('raw_id', 0)
+        print(raw_id)
         raw = None
         if raw_id == 0:
             raw = params.BUS_DEPOT_RAW
