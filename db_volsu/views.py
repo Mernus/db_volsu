@@ -19,7 +19,6 @@ def base_page(request):
         if not cache_data:
             return redirect("/")
 
-        # TODO: проверить, что есть все данные, в противном случае слать в жопу
         if cache_data['host'] == "localhost" and cache_data['port'] == "5432":
             cache_data.pop('host')
             cache_data.pop('port')
@@ -37,7 +36,6 @@ def base_page(request):
         if parser.has_section(params.DEFAULTS_SECTION_NAME):
             db_params = parser.items(section=params.DEFAULTS_SECTION_NAME)
             dict_params = {parameter[0]: parameter[1] for parameter in db_params}
-        # TODO: проверить, что dict_params объявлен
         return render(request, 'login_page.html', context=dict_params)
 
     return redirect("/database/")
@@ -100,3 +98,10 @@ def get_table(request):
             print_success("Connection was closed")
 
     return render(request, 'database.html', context={"raw_id": raw_id, "result": result})
+
+
+def disconnect(request):
+    print_info("Disconnecting")
+    cache.delete_many(["database", "user", "password"])
+    print_success("Connection was closed")
+    return redirect("/")
