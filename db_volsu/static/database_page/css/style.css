@@ -6,9 +6,9 @@
     background-size: cover;
     display: block;
     -webkit-justify-content: space-between;
-    -webkit-box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
-    -moz-box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
-    box-shadow: -2px 7px 37px 8px rgba(167, 167, 167, 0.52);
+    -webkit-box-shadow: -2px 7px 37px 8px rgba(188, 168, 232, 0.52);
+    -moz-box-shadow: -2px 7px 37px 8px rgba(188, 168, 232, 0.52);
+    box-shadow: -2px 7px 37px 8px rgba(188, 168, 232, 0.52);
 }
 
 a {
