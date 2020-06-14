@@ -38,3 +38,10 @@ a:hover {
     color: #000;
     border-radius: 0 10px 10px 0;
 }
+
+.span {
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
