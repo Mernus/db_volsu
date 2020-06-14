@@ -25,11 +25,12 @@ a:hover {
 }
 
 #menu {
-    margin: 0 15% 2em 15%;
+    margin: 0 12% 2em 12%;
 }
 
 #menu > a {
     padding: 0.2em;
+    border: 1px solid black;
 }
 
 .svg-icons {
