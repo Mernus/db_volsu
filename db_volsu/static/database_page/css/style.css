@@ -48,10 +48,10 @@ a:hover {
 
 td {
     text-align: center;
-    vertical-align: middle;
+    vertical-align: middle !important;
 }
 
 th {
     text-align: center;
-    vertical-align: middle;
+    vertical-align: middle !important;
 }
