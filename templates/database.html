@@ -34,53 +34,53 @@
 <div id="navs">
     <nav id="menu">
         {% ifequal raw_id 0 %}
-            <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
+            <a class="active" id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
                role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
+            <a id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
                role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
         {% endifequal %}
         {% ifequal raw_id 1 %}
-            <a class="nav-item nav-link active" id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
+            <a class="active" id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
                role="tab"
                aria-controls="nav-user_data" aria-selected="false">Active users</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
+            <a id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
                role="tab"
                aria-controls="nav-user_data" aria-selected="false">Active users</a>
         {% endifequal %}
         {% ifequal raw_id 2 %}
-            <a class="nav-item nav-link active" id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
+            <a class="active" id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
                role="tab"
                aria-controls="nav-station" aria-selected="false">Active stations</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
+            <a id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
                role="tab"
                aria-controls="nav-station" aria-selected="false">Active stations</a>
         {% endifequal %}
         {% ifequal raw_id 3 %}
-            <a class="nav-item nav-link active" id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3"
+            <a class="active" id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3"
                role="tab"
                aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3" role="tab"
+            <a id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3" role="tab"
                aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
         {% endifequal %}
         {% ifequal raw_id 4 %}
-            <a class="nav-item nav-link active" id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
+            <a class="active" id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
                role="tab"
                aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
+            <a id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
                role="tab"
                aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
         {% endifequal %}
         {% ifequal raw_id 5 %}
-            <a class="nav-item nav-link active" id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5"
+            <a class="active" id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5"
                role="tab"
                aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
         {% else %}
-            <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5" role="tab"
+            <a id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5" role="tab"
                aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
         {% endifequal %}
     </nav>
