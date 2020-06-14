@@ -32,13 +32,83 @@
 </head>
 <body>
 <div id="navs">
-    {% ifequal raw_id 0 %}
-        <nav id="menu">
+    <nav id="menu">
+        {% ifequal raw_id 0 %}
             <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="?raw_id=0"
+                <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
                    role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
             </div>
-        </nav>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-bus_depot-tab" data-toggle="tab" href="/database/?raw_id=0"
+                   role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
+            </div>
+        {% endifequal %}
+        {% ifequal raw_id 1 %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
+                   role="tab"
+                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
+            </div>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="/database/?raw_id=1"
+                   role="tab"
+                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
+            </div>
+        {% endifequal %}
+        {% ifequal raw_id 2 %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
+                   role="tab"
+                   aria-controls="nav-station" aria-selected="false">Active stations</a>
+            </div>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="/database/?raw_id=2"
+                   role="tab"
+                   aria-controls="nav-station" aria-selected="false">Active stations</a>
+            </div>
+        {% endifequal %}
+        {% ifequal raw_id 3 %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3"
+                   role="tab"
+                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
+            </div>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="/database/?raw_id=3" role="tab"
+                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
+            </div>
+        {% endifequal %}
+        {% ifequal raw_id 4 %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
+                   role="tab"
+                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
+            </div>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="/database/?raw_id=4"
+                   role="tab"
+                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
+            </div>
+        {% endifequal %}
+        {% ifequal raw_id 5 %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5"
+                   role="tab"
+                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
+            </div>
+        {% else %}
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="/database/?raw_id=5" role="tab"
+                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
+            </div>
+        {% endifequal %}
+    </nav>
+    {% ifequal raw_id 0 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel"
                  aria-labelledby="nav-bus_depot-tab">
@@ -76,12 +146,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-bus_depot-tab" data-toggle="tab" href="?raw_id=0"
-                   role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel"
                  aria-labelledby="nav-bus_depot-tab">
@@ -120,12 +184,6 @@
         </div>
     {% endifequal %}
     {% ifequal raw_id 1 %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-user_data-tab" data-toggle="tab" href="?raw_id=1" role="tab"
-                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
                 <table class="table table-hover table-bordered">
@@ -162,12 +220,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="?raw_id=1" role="tab"
-                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
                 <table class="table table-hover table-bordered">
@@ -205,12 +257,6 @@
         </div>
     {% endifequal %}
     {% ifequal raw_id 2 %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-station-tab" data-toggle="tab" href="?raw_id=2" role="tab"
-                   aria-controls="nav-station" aria-selected="false">Active stations</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
                 <table class="table table-hover table-bordered">
@@ -239,12 +285,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="?raw_id=2" role="tab"
-                   aria-controls="nav-station" aria-selected="false">Active stations</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
                 <table class="table table-hover table-bordered">
@@ -274,12 +314,6 @@
         </div>
     {% endifequal %}
     {% ifequal raw_id 3 %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-bus-tab" data-toggle="tab" href="?raw_id=3" role="tab"
-                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
                 <table class="table table-hover table-bordered">
@@ -310,12 +344,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="?raw_id=3" role="tab"
-                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
                 <table class="table table-hover table-bordered">
@@ -347,12 +375,6 @@
         </div>
     {% endifequal %}
     {% ifequal raw_id 4 %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-schedule-tab" data-toggle="tab" href="?raw_id=4" role="tab"
-                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
                 <table class="table table-hover table-bordered">
@@ -393,12 +415,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="?raw_id=4" role="tab"
-                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
                 <table class="table table-hover table-bordered">
@@ -440,12 +456,6 @@
         </div>
     {% endifequal %}
     {% ifequal raw_id 5 %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-ticket-tab" data-toggle="tab" href="?raw_id=5" role="tab"
-                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
                 <table class="table table-hover table-bordered">
@@ -492,12 +502,6 @@
             </div>
         </div>
     {% else %}
-        <nav id="menu">
-            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="?raw_id=5" role="tab"
-                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
-            </div>
-        </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
                 <table class="table table-hover table-bordered">
