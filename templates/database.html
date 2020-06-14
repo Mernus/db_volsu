@@ -282,6 +282,15 @@
             </ul>
         </nav>
     </div>
+    <script>
+        let temp_href = document.getElementsByClassName("active")[0].href;
+        let temp_index = temp_href.indexOf("#");
+        let temp_str = temp_href.slice(temp_index);
+
+        for (let link of document.getElementsByClassName('page-link')) {
+            link.href += temp_str;
+        }
+    </script>
 </div>
 </body>
 </html>
