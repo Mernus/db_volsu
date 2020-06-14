@@ -33,38 +33,38 @@
 <body>
 <div id="navs">
     <nav id="menu">
-        {% if raw_id == 0 %}
+        {% ifequal raw_id "0" %}
             <a class="active" id="nav-bus_depot-tab" href="/database/?raw_id=0">Buses types in depot</a>
         {% else %}
             <a id="nav-bus_depot-tab" href="/database/?raw_id=0">Buses types in depot</a>
-        {% endif %}
-        {% if raw_id == 1 %}
+        {% endifequal %}
+        {% ifequal raw_id "1" %}
             <a class="active" id="nav-user_data-tab" href="/database/?raw_id=1">Active users</a>
         {% else %}
             <a id="nav-user_data-tab" href="/database/?raw_id=1">Active users</a>
-        {% endif %}
-        {% if raw_id == 2 %}
+        {% endifequal %}
+        {% ifequal raw_id "2" %}
             <a class="active" id="nav-station-tab" href="/database/?raw_id=2">Active stations</a>
         {% else %}
             <a id="nav-station-tab" href="/database/?raw_id=2">Active stations</a>
-        {% endif %}
-        {% if raw_id == 3 %}
+        {% endifequal %}
+        {% ifequal raw_id "3" %}
             <a class="active" id="nav-bus-tab" href="/database/?raw_id=3">Buses in depot</a>
         {% else %}
             <a id="nav-bus-tab" href="/database/?raw_id=3">Buses in depot</a>
-        {% endif %}
-        {% if raw_id == 4 %}
+        {% endifequal %}
+        {% ifequal raw_id "4" %}
             <a class="active" id="nav-schedule-tab" href="/database/?raw_id=4">Buses Schedule</a>
         {% else %}
             <a id="nav-schedule-tab" href="/database/?raw_id=4">Buses Schedule</a>
-        {% endif %}
-        {% if raw_id == 5 %}
+        {% endifequal %}
+        {% ifequal raw_id "5" %}
             <a class="active" id="nav-ticket-tab" href="/database/?raw_id=5">Active tickets</a>
         {% else %}
             <a id="nav-ticket-tab" href="/database/?raw_id=5">Active tickets</a>
-        {% endif %}
+        {% endifequal %}
     </nav>
-    {% if raw_id == 0 %}
+    {% ifequal raw_id "0" %}
         <table class="table table-hover table-bordered">
             <caption>Buses types in depot</caption>
             <thead class="thead-dark">
@@ -97,8 +97,8 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
-    {% if raw_id == 1 %}
+    {% endifequal %}
+    {% ifequal raw_id "1" %}
         <table class="table table-hover table-bordered">
             <caption>Active users</caption>
             <thead class="thead-dark">
@@ -131,8 +131,8 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
-    {% if raw_id == 2 %}
+    {% endifequal %}
+    {% ifequal raw_id "2" %}
         <table class="table table-hover table-bordered">
             <caption>Active stations</caption>
             <thead class="thead-dark">
@@ -157,8 +157,8 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
-    {% if raw_id == 3 %}
+    {% endifequal %}
+    {% ifequal raw_id "3" %}
         <table class="table table-hover table-bordered">
             <caption>Buses in depot</caption>
             <thead class="thead-dark">
@@ -185,8 +185,8 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
-    {% if raw_id == 4 %}
+    {% endifequal %}
+    {% ifequal raw_id "4" %}
         <table class="table table-hover table-bordered">
             <caption>Buses Schedule</caption>
             <thead class="thead-dark">
@@ -223,8 +223,8 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
-    {% if raw_id == 5 %}
+    {% endifequal %}
+    {% ifequal raw_id "5" %}
         <table class="table table-hover table-bordered">
             <caption>Active tickets</caption>
             <thead class="thead-dark">
@@ -267,7 +267,7 @@
             {% endfor %}
             </tbody>
         </table>
-    {% endif %}
+    {% endifequal %}
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center pagination-sm">
             {% if result.has_previous %}
