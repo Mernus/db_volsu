@@ -7,7 +7,7 @@ DEBUG = True
 HEROKU_DEBUG = 1
 HEROKU_DEBUG_HEADERS = 1
 
-CACHE_TTL = 60 * 30
+CACHE_TTL = 60 * 60
 
 CACHES = {
     "default": {
