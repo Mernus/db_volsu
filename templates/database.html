@@ -33,38 +33,38 @@
 <body>
 <div id="navs">
     <nav id="menu">
-        {% ifequal raw_id "0" %}
+        {% ifequal raw_id 0 %}
             <a class="active" id="nav-bus_depot-tab" href="/database/?raw_id=0">Buses types in depot</a>
         {% else %}
             <a id="nav-bus_depot-tab" href="/database/?raw_id=0">Buses types in depot</a>
         {% endifequal %}
-        {% ifequal raw_id "1" %}
+        {% ifequal raw_id 1 %}
             <a class="active" id="nav-user_data-tab" href="/database/?raw_id=1">Active users</a>
         {% else %}
             <a id="nav-user_data-tab" href="/database/?raw_id=1">Active users</a>
         {% endifequal %}
-        {% ifequal raw_id "2" %}
+        {% ifequal raw_id 2 %}
             <a class="active" id="nav-station-tab" href="/database/?raw_id=2">Active stations</a>
         {% else %}
             <a id="nav-station-tab" href="/database/?raw_id=2">Active stations</a>
         {% endifequal %}
-        {% ifequal raw_id "3" %}
+        {% ifequal raw_id 3 %}
             <a class="active" id="nav-bus-tab" href="/database/?raw_id=3">Buses in depot</a>
         {% else %}
             <a id="nav-bus-tab" href="/database/?raw_id=3">Buses in depot</a>
         {% endifequal %}
-        {% ifequal raw_id "4" %}
+        {% ifequal raw_id 4 %}
             <a class="active" id="nav-schedule-tab" href="/database/?raw_id=4">Buses Schedule</a>
         {% else %}
             <a id="nav-schedule-tab" href="/database/?raw_id=4">Buses Schedule</a>
         {% endifequal %}
-        {% ifequal raw_id "5" %}
+        {% ifequal raw_id 5 %}
             <a class="active" id="nav-ticket-tab" href="/database/?raw_id=5">Active tickets</a>
         {% else %}
             <a id="nav-ticket-tab" href="/database/?raw_id=5">Active tickets</a>
         {% endifequal %}
     </nav>
-    {% ifequal raw_id "0" %}
+    {% ifequal raw_id 0 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel"
                  aria-labelledby="nav-bus_depot-tab">
@@ -141,7 +141,7 @@
             </div>
         </div>
     {% endifequal %}
-    {% ifequal raw_id "1" %}
+    {% ifequal raw_id 1 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
                 <table class="table table-hover table-bordered">
@@ -216,7 +216,7 @@
             </div>
         </div>
     {% endifequal %}
-    {% ifequal raw_id "2" %}
+    {% ifequal raw_id 2 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
                 <table class="table table-hover table-bordered">
@@ -275,7 +275,7 @@
             </div>
         </div>
     {% endifequal %}
-    {% ifequal raw_id "3" %}
+    {% ifequal raw_id 3 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
                 <table class="table table-hover table-bordered">
@@ -338,7 +338,7 @@
             </div>
         </div>
     {% endifequal %}
-    {% ifequal raw_id "4" %}
+    {% ifequal raw_id 4 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
                 <table class="table table-hover table-bordered">
@@ -421,7 +421,7 @@
             </div>
         </div>
     {% endifequal %}
-    {% ifequal raw_id "5" %}
+    {% ifequal raw_id 5 %}
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
                 <table class="table table-hover table-bordered">
@@ -550,6 +550,7 @@
             {% endif %}
         </ul>
     </nav>
+    {{ raw_id }}
 </div>
 </body>
 </html>
