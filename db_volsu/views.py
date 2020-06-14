@@ -59,7 +59,7 @@ def database(request):
 
         print_success("Connection was established")
 
-        result = get_context(request, connection, params.SCHEDULE_RAW)
+        result = get_context(request, connection, params.BUS_DEPOT_RAW)
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
