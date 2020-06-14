@@ -58,3 +58,5 @@ TICKET_RAW = "SELECT bus_schema.ticket.id AS ticket_id, " \
              "ON dep_station.id = bus_schema.schedule.point_of_departure_id " \
              ") " \
              "AS dep_station ON dep_station.st_id = bus_schema.ticket.route_id"
+
+DELETE_ROW = "DELETE FROM bus_schema.{table} WHERE bus_schema.{table}.id = {del_id}"

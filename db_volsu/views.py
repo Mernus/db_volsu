@@ -59,21 +59,79 @@ def get_table(request):
 
         print_success("Connection was established")
 
-        raw_id = request.GET.get('raw_id', 0)
+        raw_id = request.GET.get('raw_id', "0")
         raw = None
-        if raw_id == 0:
+        if raw_id == "0":
             raw = params.BUS_DEPOT_RAW
-        elif raw_id == 1:
+        elif raw_id == "1":
             raw = params.USER_DATA_RAW
-            print('1')
-        elif raw_id == 2:
+        elif raw_id == "2":
             raw = params.STATION_RAW
-        elif raw_id == 3:
+        elif raw_id == "3":
             raw = params.BUS_RAW
-        elif raw_id == 4:
+        elif raw_id == "4":
             raw = params.SCHEDULE_RAW
-        elif raw_id == 5:
+        elif raw_id == "5":
             raw = params.TICKET_RAW
+
+        result = get_context(request, connection, raw)
+
+    except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
+        cache.delete_many(["database", "user", "password"])
+        print_error(exception)
+        return redirect("/")
+
+    finally:
+        if connection and not connection.closed:
+            print_info("Disconnecting from database")
+            connection.close()
+            print_success("Connection was closed")
+
+    return render(request, 'database.html', context={"raw_id": raw_id, "result": result})
+
+
+def delete_row(request):
+    connection = None
+    try:
+        key_set = params.CONNECTION_PARAMS
+        con_params = cache.get_many(key_set)
+        if not con_params:
+            return redirect("/")
+
+        print_info("Connecting to database")
+        connection = psycopg2.connect(**con_params)
+        if connection is None:
+            print_error("Bad credentials for database connection")
+            raise BadConnectionCredentials
+
+        print_success("Connection was established")
+
+        raw_id = request.GET.get('raw_id', "0")
+        raw = None
+        table = None
+        if raw_id == "0":
+            raw = params.BUS_DEPOT_RAW
+            table = "bus_depot"
+        elif raw_id == "1":
+            raw = params.USER_DATA_RAW
+            table = "user_data"
+        elif raw_id == "2":
+            raw = params.STATION_RAW
+            table = "station"
+        elif raw_id == "3":
+            raw = params.BUS_RAW
+            table = "bus"
+        elif raw_id == "4":
+            raw = params.SCHEDULE_RAW
+            table = "schedule"
+        elif raw_id == "5":
+            raw = params.TICKET_RAW
+            table = "ticket"
+
+        del_id = request.GET.get('del_id', "-1")
+        if del_id != "-1":
+            with connection.cursor() as cursor:
+                cursor.execute(params.DELETE_ROW.format(table=table, del_id=del_id))
 
         result = get_context(request, connection, raw)
 
