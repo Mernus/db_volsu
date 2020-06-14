@@ -60,12 +60,12 @@ def get_table(request):
         print_success("Connection was established")
 
         raw_id = request.GET.get('raw_id', 0)
-        print(raw_id)
         raw = None
         if raw_id == 0:
             raw = params.BUS_DEPOT_RAW
         elif raw_id == 1:
             raw = params.USER_DATA_RAW
+            print('1')
         elif raw_id == 2:
             raw = params.STATION_RAW
         elif raw_id == 3:
