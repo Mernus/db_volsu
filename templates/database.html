@@ -64,8 +64,12 @@
                 <tbody>
                 {% for row in result %}
                     <tr>
-                        <th scope="row">1</th>
-                        <td>{{ row }}</td>
+                        <th scope="row">{{ row.id }}</th>
+                        <td>{{ row.firm }}</td>
+                        <td>{{ row.seria }}</td>
+                        <td>{{ row.day_route_num }}</td>
+                        <td>{{ row.seats_num }}</td>
+                        <td>{{ row.num_in_depot }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

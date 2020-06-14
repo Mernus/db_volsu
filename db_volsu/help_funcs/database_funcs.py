@@ -14,7 +14,7 @@ def get_context(request, connection, sql_raw):
         cursor.execute(sql_raw)
         result = namedtuplefetchall(cursor)
 
-    paginator = Paginator(result, 2)
+    paginator = Paginator(result, 5)
     page_number = request.GET.get('page')
 
     try:
