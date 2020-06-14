@@ -43,7 +43,7 @@ def base_page(request):
     return redirect("/database/")
 
 
-def database(request):
+def get_table(request):
     connection = None
     try:
         key_set = params.CONNECTION_PARAMS
@@ -59,7 +59,22 @@ def database(request):
 
         print_success("Connection was established")
 
-        result = get_context(request, connection, params.BUS_DEPOT_RAW)
+        raw_id = request.GET.get('raw_id', 0)
+        raw = None
+        if raw_id == 0:
+            raw = params.BUS_DEPOT_RAW
+        elif raw_id == 1:
+            raw = params.USER_DATA_RAW
+        elif raw_id == 2:
+            raw = params.STATION_RAW
+        elif raw_id == 3:
+            raw = params.BUS_RAW
+        elif raw_id == 4:
+            raw = params.SCHEDULE_RAW
+        elif raw_id == 5:
+            raw = params.TICKET_RAW
+
+        result = get_context(request, connection, raw)
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -72,4 +87,4 @@ def database(request):
             connection.close()
             print_success("Connection was closed")
 
-    return render(request, 'database.html', context={"result": result})
+    return render(request, 'database.html', context={"raw_id": raw_id, "result": result})

@@ -32,268 +32,552 @@
 </head>
 <body>
 <div id="navs">
-    <nav id="menu">
-        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="#nav-bus_depot"
-               role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
-            <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="#nav-user_data" role="tab"
-               aria-controls="nav-user_data" aria-selected="false">Active users</a>
-            <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="#nav-station" role="tab"
-               aria-controls="nav-station" aria-selected="false">Active stations</a>
-            <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="#nav-bus" role="tab"
-               aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
-            <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="#nav-schedule" role="tab"
-               aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
-            <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="#nav-ticket" role="tab"
-               aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel" aria-labelledby="nav-bus_depot-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Buses types in depot</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Firm</th>
-                    <th scope="col">Seria</th>
-                    <th scope="col">Max routes in one day</th>
-                    <th scope="col">Seats num</th>
-                    <th scope="col">Buses num in depot</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.id }}</th>
-                        <td>{{ row.firm }}</td>
-                        <td>{{ row.seria }}</td>
-                        <td>{{ row.day_route_num }}</td>
-                        <td>{{ row.seats_num }}</td>
-                        <td>{{ row.num_in_depot }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Active users</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Surname</th>
-                    <th scope="col">Mail</th>
-                    <th scope="col">Passport seria and num</th>
-                    <th scope="col">Money</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.id }}</th>
-                        <td>{{ row.name }}</td>
-                        <td>{{ row.surname }}</td>
-                        <td>{{ row.mail }}</td>
-                        <td>{{ row.passport_seria_and_num }}</td>
-                        <td>{{ row.money }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Active stations</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Station name</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.id }}</th>
-                        <td>{{ row.station_name }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Buses in depot</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Bus firm</th>
-                    <th scope="col">Bus seria</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.bus_id }}</th>
-                        <td>{{ row.bus_firm }}</td>
-                        <td>{{ row.bus_seria }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Buses Schedule</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Departure station</th>
-                    <th scope="col">Departure datetime</th>
-                    <th scope="col">Arrival station</th>
-                    <th scope="col">Arrival datetime</th>
-                    <th scope="col">Bus ID</th>
-                    <th scope="col">Bus firm</th>
-                    <th scope="col">Bus seria</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.shedule_id }}</th>
-                        <td>{{ row.dep_station_name }}</td>
-                        <td>{{ row.dep_station_time }}</td>
-                        <td>{{ row.arr_station_name }}</td>
-                        <td>{{ row.arr_station_time }}</td>
-                        <td>{{ row.id }}</td>
-                        <td>{{ row.firm }}</td>
-                        <td>{{ row.seria }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
-            <table class="table table-hover table-bordered">
-                <caption>Active tickets</caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Customer name</th>
-                    <th scope="col">Customer surname</th>
-                    <th scope="col">Customer mail</th>
-                    <th scope="col">Passenger name</th>
-                    <th scope="col">Passenger surname</th>
-                    <th scope="col">Departure station</th>
-                    <th scope="col">Departure datetime</th>
-                    <th scope="col">Arrival station</th>
-                    <th scope="col">Arrival datetime</th>
-                    <th scope="col">Ticket cost</th>
-                    <th scope="col">Edit row</th>
-                    <th scope="col">Delete row</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in result %}
-                    <tr>
-                        <th scope="row">{{ row.ticket_id }}</th>
-                        <td>{{ row.customer_name }}</td>
-                        <td>{{ row.customer_surname }}</td>
-                        <td>{{ row.customer_mail }}</td>
-                        <td>{{ row.passenger_name }}</td>
-                        <td>{{ row.passenger_surname }}</td>
-                        <td>{{ row.dep_station_name }}</td>
-                        <td>{{ row.dep_station_time }}</td>
-                        <td>{{ row.arr_station_name }}</td>
-                        <td>{{ row.arr_station_time }}</td>
-                        <td>{{ row.ticket_cost }}</td>
-                        <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
-                                                                   aria-hidden="true"></i></span></a></td>
-                        <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
-                                                                   aria-hidden="true"></i></span></a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center pagination-sm">
-                {% if result.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ result.previous_page_number }}">Previous</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Previous</a>
-                    </li>
-                {% endif %}
-                {% for page in result.paginator.page_range %}
-                    {% ifequal page result.number %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?page={{ page }}">{{ page }} <span
-                                    class="sr-only">(current)</span></a>
-                        </li>
-                    {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-                        </li>
-                    {% endifequal %}
-                {% endfor %}
-                {% if result.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ result.next_page_number }}">Next</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                {% endif %}
-            </ul>
+    {% ifequal raw_id 0 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-bus_depot-tab" data-toggle="tab" href="?raw_id=0"
+                   role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
+            </div>
         </nav>
-    </div>
-    <script>
-        $(".nav-link").on("mousedown", function () {
-            let temp_href = document.getElementsByClassName("active")[0].href;
-            let temp_index = temp_href.indexOf("#");
-            let temp_str = temp_href.slice(temp_index);
-
-            for (let link of document.getElementsByClassName('page-link')) {
-                let index_for = temp_href.indexOf("#");
-                link.href = temp_href.slice(0, index_for) + temp_str;
-            }
-        });
-    </script>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel"
+                 aria-labelledby="nav-bus_depot-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses types in depot</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Firm</th>
+                        <th scope="col">Seria</th>
+                        <th scope="col">Max routes in one day</th>
+                        <th scope="col">Seats num</th>
+                        <th scope="col">Buses num in depot</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.firm }}</td>
+                            <td>{{ row.seria }}</td>
+                            <td>{{ row.day_route_num }}</td>
+                            <td>{{ row.seats_num }}</td>
+                            <td>{{ row.num_in_depot }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-bus_depot-tab" data-toggle="tab" href="?raw_id=0"
+                   role="tab" aria-controls="nav-bus_depot" aria-selected="true">Buses types in depot</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-bus_depot" role="tabpanel"
+                 aria-labelledby="nav-bus_depot-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses types in depot</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Firm</th>
+                        <th scope="col">Seria</th>
+                        <th scope="col">Max routes in one day</th>
+                        <th scope="col">Seats num</th>
+                        <th scope="col">Buses num in depot</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.firm }}</td>
+                            <td>{{ row.seria }}</td>
+                            <td>{{ row.day_route_num }}</td>
+                            <td>{{ row.seats_num }}</td>
+                            <td>{{ row.num_in_depot }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal raw_id 1 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-user_data-tab" data-toggle="tab" href="?raw_id=1" role="tab"
+                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active users</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Passport seria and num</th>
+                        <th scope="col">Money</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.surname }}</td>
+                            <td>{{ row.mail }}</td>
+                            <td>{{ row.passport_seria_and_num }}</td>
+                            <td>{{ row.money }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-user_data-tab" data-toggle="tab" href="?raw_id=1" role="tab"
+                   aria-controls="nav-user_data" aria-selected="false">Active users</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-user_data" role="tabpanel" aria-labelledby="nav-user_data-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active users</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Mail</th>
+                        <th scope="col">Passport seria and num</th>
+                        <th scope="col">Money</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.surname }}</td>
+                            <td>{{ row.mail }}</td>
+                            <td>{{ row.passport_seria_and_num }}</td>
+                            <td>{{ row.money }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal raw_id 2 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-station-tab" data-toggle="tab" href="?raw_id=2" role="tab"
+                   aria-controls="nav-station" aria-selected="false">Active stations</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active stations</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Station name</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.station_name }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-station-tab" data-toggle="tab" href="?raw_id=2" role="tab"
+                   aria-controls="nav-station" aria-selected="false">Active stations</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-station" role="tabpanel" aria-labelledby="nav-station-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active stations</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Station name</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.id }}</th>
+                            <td>{{ row.station_name }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal raw_id 3 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-bus-tab" data-toggle="tab" href="?raw_id=3" role="tab"
+                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses in depot</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bus firm</th>
+                        <th scope="col">Bus seria</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.bus_id }}</th>
+                            <td>{{ row.bus_firm }}</td>
+                            <td>{{ row.bus_seria }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-bus-tab" data-toggle="tab" href="?raw_id=3" role="tab"
+                   aria-controls="nav-bus" aria-selected="false">Buses in depot</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-bus" role="tabpanel" aria-labelledby="nav-bus-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses in depot</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bus firm</th>
+                        <th scope="col">Bus seria</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.bus_id }}</th>
+                            <td>{{ row.bus_firm }}</td>
+                            <td>{{ row.bus_seria }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal raw_id 4 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-schedule-tab" data-toggle="tab" href="?raw_id=4" role="tab"
+                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses Schedule</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Departure station</th>
+                        <th scope="col">Departure datetime</th>
+                        <th scope="col">Arrival station</th>
+                        <th scope="col">Arrival datetime</th>
+                        <th scope="col">Bus ID</th>
+                        <th scope="col">Bus firm</th>
+                        <th scope="col">Bus seria</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.shedule_id }}</th>
+                            <td>{{ row.dep_station_name }}</td>
+                            <td>{{ row.dep_station_time }}</td>
+                            <td>{{ row.arr_station_name }}</td>
+                            <td>{{ row.arr_station_time }}</td>
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.firm }}</td>
+                            <td>{{ row.seria }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-schedule-tab" data-toggle="tab" href="?raw_id=4" role="tab"
+                   aria-controls="nav-schedule" aria-selected="false">Buses Schedule</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-schedule" role="tabpanel" aria-labelledby="nav-schedule-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Buses Schedule</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Departure station</th>
+                        <th scope="col">Departure datetime</th>
+                        <th scope="col">Arrival station</th>
+                        <th scope="col">Arrival datetime</th>
+                        <th scope="col">Bus ID</th>
+                        <th scope="col">Bus firm</th>
+                        <th scope="col">Bus seria</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.shedule_id }}</th>
+                            <td>{{ row.dep_station_name }}</td>
+                            <td>{{ row.dep_station_time }}</td>
+                            <td>{{ row.arr_station_name }}</td>
+                            <td>{{ row.arr_station_time }}</td>
+                            <td>{{ row.id }}</td>
+                            <td>{{ row.firm }}</td>
+                            <td>{{ row.seria }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    {% ifequal raw_id 5 %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-ticket-tab" data-toggle="tab" href="?raw_id=5" role="tab"
+                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active tickets</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer surname</th>
+                        <th scope="col">Customer mail</th>
+                        <th scope="col">Passenger name</th>
+                        <th scope="col">Passenger surname</th>
+                        <th scope="col">Departure station</th>
+                        <th scope="col">Departure datetime</th>
+                        <th scope="col">Arrival station</th>
+                        <th scope="col">Arrival datetime</th>
+                        <th scope="col">Ticket cost</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.ticket_id }}</th>
+                            <td>{{ row.customer_name }}</td>
+                            <td>{{ row.customer_surname }}</td>
+                            <td>{{ row.customer_mail }}</td>
+                            <td>{{ row.passenger_name }}</td>
+                            <td>{{ row.passenger_surname }}</td>
+                            <td>{{ row.dep_station_name }}</td>
+                            <td>{{ row.dep_station_time }}</td>
+                            <td>{{ row.arr_station_name }}</td>
+                            <td>{{ row.arr_station_time }}</td>
+                            <td>{{ row.ticket_cost }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <nav id="menu">
+            <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-ticket-tab" data-toggle="tab" href="?raw_id=5" role="tab"
+                   aria-controls="nav-ticket" aria-selected="false">Active tickets</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-ticket" role="tabpanel" aria-labelledby="nav-ticket-tab">
+                <table class="table table-hover table-bordered">
+                    <caption>Active tickets</caption>
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Customer name</th>
+                        <th scope="col">Customer surname</th>
+                        <th scope="col">Customer mail</th>
+                        <th scope="col">Passenger name</th>
+                        <th scope="col">Passenger surname</th>
+                        <th scope="col">Departure station</th>
+                        <th scope="col">Departure datetime</th>
+                        <th scope="col">Arrival station</th>
+                        <th scope="col">Arrival datetime</th>
+                        <th scope="col">Ticket cost</th>
+                        <th scope="col">Edit row</th>
+                        <th scope="col">Delete row</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in result %}
+                        <tr>
+                            <th scope="row">{{ row.ticket_id }}</th>
+                            <td>{{ row.customer_name }}</td>
+                            <td>{{ row.customer_surname }}</td>
+                            <td>{{ row.customer_mail }}</td>
+                            <td>{{ row.passenger_name }}</td>
+                            <td>{{ row.passenger_surname }}</td>
+                            <td>{{ row.dep_station_name }}</td>
+                            <td>{{ row.dep_station_time }}</td>
+                            <td>{{ row.arr_station_name }}</td>
+                            <td>{{ row.arr_station_time }}</td>
+                            <td>{{ row.ticket_cost }}</td>
+                            <td><a href="#"><span class="svg-icons"><i class="fa fa-trash-alt"
+                                                                       aria-hidden="true"></i></span></a></td>
+                            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                                       aria-hidden="true"></i></span></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endifequal %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-sm">
+            {% if result.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ result.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+            {% endif %}
+            {% for page in result.paginator.page_range %}
+                {% ifequal page result.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="?page={{ page }}">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endifequal %}
+            {% endfor %}
+            {% if result.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ result.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 </body>
 </html>
