@@ -7,8 +7,8 @@ from db_volsu.help_funcs.exceptions import BadSectionName
 from db_volsu.help_funcs.print_funcs import print_success, print_info
 
 
-def get_params_from_config(*, ini_file: str = params.DEFAULTS_INI_FILE_PATH,
-                           db_section: str = params.DEFAULTS_SECTION_NAME) -> dict:
+def _get_params_from_config(*, ini_file: str = params.DEFAULTS_INI_FILE_PATH,
+                            db_section: str = params.DEFAULTS_SECTION_NAME) -> dict:
     """
     This func return params to connect to database from ini file
 
@@ -31,8 +31,8 @@ def get_params_from_config(*, ini_file: str = params.DEFAULTS_INI_FILE_PATH,
     return dict_params
 
 
-def set_params_to_config(*, connection_parameters: dict, ini_file: str = params.CONNECTION_INI_FILE_PATH,
-                         db_section: str = params.CONNECTION_SECTION_NAME) -> None:
+def _set_params_to_config(*, connection_parameters: dict, ini_file: str = params.CONNECTION_INI_FILE_PATH,
+                          db_section: str = params.CONNECTION_SECTION_NAME) -> None:
     """
     This func return params to connect to database from ini file
 
@@ -66,13 +66,13 @@ def connect_to_database() -> None:
 
     connection = None
     try:
-        params = get_params_from_config()
+        params = _get_params_from_config()
 
         print_info("Connecting to database")
         connection = psycopg2.connect(**params)
         print_success("Connection was established")
 
-        set_params_to_config(connection_parameters=params)
+        _set_params_to_config(connection_parameters=params)
 
     except (Exception, psycopg2.Error) as exception:
         print(exception)
