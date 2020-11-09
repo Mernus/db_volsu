@@ -1,0 +1,42 @@
+<table class="table table-hover table-bordered">
+    <caption>Active tickets</caption>
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer name</th>
+        <th scope="col">Customer surname</th>
+        <th scope="col">Customer mail</th>
+        <th scope="col">Passenger name</th>
+        <th scope="col">Passenger surname</th>
+        <th scope="col">Departure station</th>
+        <th scope="col">Departure datetime</th>
+        <th scope="col">Arrival station</th>
+        <th scope="col">Arrival datetime</th>
+        <th scope="col">Ticket cost</th>
+        <th scope="col">Edit row</th>
+        <th scope="col">Delete row</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in result %}
+        <tr>
+            <th scope="row">{{ record.ticket_id }}</th>
+            <td>{{ record.customer_name }}</td>
+            <td>{{ record.customer_surname }}</td>
+            <td>{{ record.customer_mail }}</td>
+            <td>{{ record.passenger_name }}</td>
+            <td>{{ record.passenger_surname }}</td>
+            <td>{{ record.dep_station_name }}</td>
+            <td>{{ record.dep_station_time }}</td>
+            <td>{{ record.arr_station_name }}</td>
+            <td>{{ record.arr_station_time }}</td>
+            <td>{{ record.ticket_cost }}</td>
+            <td><a href="/database/delete_row/?table_name={{ table }}&del_id={{ record.id }}"><span
+                    class="svg-icons"><i class="fa fa-trash-alt"
+                                         aria-hidden="true"></i></span></a></td>
+            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                       aria-hidden="true"></i></span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

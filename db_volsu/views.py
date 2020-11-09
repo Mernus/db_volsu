@@ -36,7 +36,7 @@ def base_page(request):
         if parser.has_section(params.DEFAULTS_SECTION_NAME):
             db_params = parser.items(section=params.DEFAULTS_SECTION_NAME)
             dict_params = {parameter[0]: parameter[1] for parameter in db_params}
-        return render(request, 'login_page.html', context=dict_params)
+        return render(request, 'login_page/login_page.html', context=dict_params)
 
     return redirect("/database/")
 
@@ -50,6 +50,7 @@ def get_table(request):
             return redirect("/")
 
         print_info("Connecting to database")
+
         connection = psycopg2.connect(**con_params)
         if connection is None:
             print_error("Bad credentials for database connection")
@@ -57,34 +58,22 @@ def get_table(request):
 
         print_success("Connection was established")
 
-        raw_id = request.GET.get('raw_id', "0")
-        raw = None
-        table = None
-        if raw_id == "0":
-            raw = params.BUS_DEPOT_RAW
-            table = "bus_depot"
-        elif raw_id == "1":
-            raw = params.USER_DATA_RAW
-            table = "user_data"
-        elif raw_id == "2":
-            raw = params.STATION_RAW
-            table = "station"
-        elif raw_id == "3":
-            raw = params.BUS_RAW
-            table = "bus"
-        elif raw_id == "4":
-            raw = params.SCHEDULE_RAW
-            table = "schedule"
-        elif raw_id == "5":
-            raw = params.TICKET_RAW
-            table = "ticket"
+        table_name = request.GET.get('table_name', "bus_depot")
+        row = params.TABLE_LIST[table_name]
 
-        del_id = request.GET.get('del_id', "-1")
-        if del_id != "-1":
+        del_id = request.GET.get('del_id', None)
+        if del_id:
             with connection.cursor() as cursor:
-                cursor.execute(params.DELETE_ROW.format(table=table, del_id=del_id))
+                cursor.execute(params.DELETE_ROW.format(table=table_name, del_id=del_id))
 
-        result = get_context(request, connection, raw)
+        result = get_context(request, connection, row)
+
+        template_name = f"database_page/{table_name}.html"
+        request_context = {
+            "table_name": table_name,
+            "template": template_name,
+            "result": result
+        }
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -97,7 +86,7 @@ def get_table(request):
             connection.close()
             print_success("Connection was closed")
 
-    return render(request, 'database.html', context={"raw_id": raw_id, "result": result})
+    return render(request, 'database_page/database.html', context=request_context)
 
 
 def disconnect(request):

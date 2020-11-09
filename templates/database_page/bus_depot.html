@@ -1,0 +1,32 @@
+<table class="table table-hover table-bordered">
+    <caption>Buses types in depot</caption>
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Firm</th>
+        <th scope="col">Seria</th>
+        <th scope="col">Max routes in one day</th>
+        <th scope="col">Seats num</th>
+        <th scope="col">Buses num in depot</th>
+        <th scope="col">Edit row</th>
+        <th scope="col">Delete row</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in result %}
+        <tr>
+            <th scope="row">{{ record.id }}</th>
+            <td>{{ record.firm }}</td>
+            <td>{{ record.seria }}</td>
+            <td>{{ record.day_route_num }}</td>
+            <td>{{ record.seats_num }}</td>
+            <td>{{ record.num_in_depot }}</td>
+            <td><a href="/database/delete_row/?table_name={{ table }}&del_id={{ record.id }}"><span
+                    class="svg-icons"><i class="fa fa-trash-alt"
+                                         aria-hidden="true"></i></span></a></td>
+            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                       aria-hidden="true"></i></span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -4,17 +4,17 @@ CONNECTION_INI_FILE_PATH = "configs/database_connection_params.ini"  # file with
 CONNECTION_SECTION_NAME = "connection_settings"  # section with connection settings for database
 CONNECTION_PARAMS = {"host", "database", "user", "password", "port"}
 
-BUS_DEPOT_RAW = "SELECT * FROM bus_schema.bus_depot"
+_BUS_DEPOT_ROW = "SELECT * FROM bus_schema.bus_depot"
 
-USER_DATA_RAW = "SELECT * FROM bus_schema.user_data"
+_USER_DATA_ROW = "SELECT * FROM bus_schema.user_data"
 
-STATION_RAW = "SELECT * FROM bus_schema.station"
+_STATION_ROW = "SELECT * FROM bus_schema.station"
 
-BUS_RAW = "SELECT bus_schema.bus.id AS bus_id, bus_type.firm AS bus_firm, " \
+_BUS_ROW = "SELECT bus_schema.bus.id AS bus_id, bus_type.firm AS bus_firm, " \
           "bus_type.seria AS bus_seria FROM bus_schema.bus " \
           "LEFT JOIN bus_schema.bus_depot AS bus_type ON bus_type.id = bus_schema.bus.bus_type_id"
 
-SCHEDULE_RAW = "SELECT bus_schema.schedule.id AS shedule_id, " \
+_SCHEDULE_ROW = "SELECT bus_schema.schedule.id AS shedule_id, " \
                "bus_schema.schedule.departure AS dep_station_time, dep_station.station_name AS dep_station_name, " \
                "bus_schema.schedule.arrival AS arr_station_time, arr_station.station_name AS arr_station_name, " \
                "bus.id, bus.firm, bus.seria " \
@@ -28,7 +28,7 @@ SCHEDULE_RAW = "SELECT bus_schema.schedule.id AS shedule_id, " \
                ") " \
                "AS bus ON bus.id = bus_schema.schedule.bus_id"
 
-TICKET_RAW = "SELECT bus_schema.ticket.id AS ticket_id, " \
+_TICKET_ROW = "SELECT bus_schema.ticket.id AS ticket_id, " \
              "user_d.name AS customer_name, user_d.surname AS customer_surname, user_d.mail AS customer_mail, " \
              "bus_schema.ticket.passenger_name, bus_schema.ticket.passenger_surname, " \
              "arr_station.st_time AS arr_station_time, arr_station.st_name AS arr_station_name, " \
@@ -59,4 +59,13 @@ TICKET_RAW = "SELECT bus_schema.ticket.id AS ticket_id, " \
              ") " \
              "AS dep_station ON dep_station.st_id = bus_schema.ticket.route_id"
 
-DELETE_ROW = "DELETE FROM bus_schema.{table} WHERE bus_schema.{table}.id = {del_id}"
+_DELETE_ROW = "DELETE FROM bus_schema.{table} WHERE bus_schema.{table}.id = {del_id}"
+
+TABLE_LIST = {
+    "bus_depot": _BUS_DEPOT_ROW,
+    "user_data": _USER_DATA_ROW,
+    "station": _STATION_ROW,
+    "bus": _BUS_ROW,
+    "schedule": _SCHEDULE_ROW,
+    "ticket": _TICKET_ROW
+}
