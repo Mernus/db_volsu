@@ -1,0 +1,32 @@
+<table class="table table-hover table-bordered">
+    <caption>Active users</caption>
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Passport seria and num</th>
+        <th scope="col">Money</th>
+        <th scope="col">Edit row</th>
+        <th scope="col">Delete row</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for record in result %}
+        <tr>
+            <th scope="row">{{ record.id }}</th>
+            <td>{{ record.name }}</td>
+            <td>{{ record.surname }}</td>
+            <td>{{ record.mail }}</td>
+            <td>{{ record.passport_seria_and_num }}</td>
+            <td>{{ record.money }}</td>
+            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+                                                       aria-hidden="true"></i></span></a></td>
+            <td><a href="{% url 'change_data' table record.id 'delete' %}"><span
+                    class="svg-icons"><i class="fa fa-trash-alt"
+                                         aria-hidden="true"></i></span></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
