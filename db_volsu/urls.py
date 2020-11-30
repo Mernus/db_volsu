@@ -2,13 +2,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from db_volsu.views import base_page, get_table, disconnect
+from db_volsu.views import base_page, get_table, change_data, disconnect
 
 urlpatterns = [
-    path('', base_page),
-    path('database/', get_table),
-    path('database/delete_row/', get_table),
-    path('database/disconnect/', disconnect),
+    path('', base_page, name='login_page'),
+    path('database/<str:table_name>/', get_table, name='get_table'),
+    path('database/<str:table_name>/<int:row_id>/<str:operation>/', change_data, name='change_data'),
+    path('database/disconnect/', disconnect, name='disconnect'),
     path('admin/', admin.site.urls),
     path('api/', include('db_volsu.api.urls')),
 ]

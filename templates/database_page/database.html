@@ -30,17 +30,17 @@
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" media="all" href={% static "database_page/css/style.css" %}>
     <!-- Custom js -->
-    <script crossorigin="anonymous" src={% static "database_page/js/function.js" %}></script>
+    <script crossorigin="anonymous" src={% static "database_page/js/functions.js" %}></script>
 </head>
 <body>
 <div id="navs">
     <nav id="menu">
-        <a id="nav-bus_depot-tab" href="/database/?table_name=bus_depot">Buses types in depot</a>
-        <a id="nav-user_data-tab" href="/database/?table_name=user_data">Active users</a>
-        <a id="nav-station-tab" href="/database/?table_name=station">Active stations</a>
-        <a id="nav-bus-tab" href="/database/?table_name=bus">Buses in depot</a>
-        <a id="nav-schedule-tab" href="/database/?table_name=schedule">Buses Schedule</a>
-        <a id="nav-ticket-tab" href="/database/?table_name=ticket">Active tickets</a>
+        <a id="nav-bus_depot-tab" href="{% url 'get_table' 'bus_depot' %}">Buses types in depot</a>
+        <a id="nav-user_data-tab" href="{% url 'get_table' 'user_data' %}">Active users</a>
+        <a id="nav-station-tab" href="{% url 'get_table' 'station' %}">Active stations</a>
+        <a id="nav-bus-tab" href="{% url 'get_table' 'bus' %}">Buses in depot</a>
+        <a id="nav-schedule-tab" href="{% url 'get_table' 'schedule' %}">Buses Schedule</a>
+        <a id="nav-ticket-tab" href="{% url 'get_table' 'ticket' %}">Active tickets</a>
     </nav>
 
     {% include template %}
@@ -50,7 +50,7 @@
             {% if result.has_previous %}
                 <li class="page-item">
                     <a class="page-link"
-                       href="?table_name={{ table }}&page={{ result.previous_page_number }}">Previous</a>
+                       href="{% url 'get_table' table %}?page={{ result.previous_page_number }}">Previous</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -60,18 +60,18 @@
             {% for page in result.paginator.page_range %}
                 {% ifequal page result.number %}
                     <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="?table_name={{ table }}&page={{ page }}">{{ page }} <span
+                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }} <span
                                 class="sr-only">(current)</span></a>
                     </li>
                 {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="?table_name={{ table }}&page={{ page }}">{{ page }}</a>
+                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }}</a>
                     </li>
                 {% endifequal %}
             {% endfor %}
             {% if result.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?table_name={{ table }}&page={{ result.next_page_number }}">Next</a>
+                    <a class="page-link" href="{% url 'get_table' table %}?page={{ result.next_page_number }}">Next</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -82,7 +82,7 @@
     </nav>
 
     <div class="custom_btn">
-        <button href="">Disconnect</button>
+        <button href="{% url 'disconnect' %}">Disconnect</button>
     </div>
 </div>
 </body>

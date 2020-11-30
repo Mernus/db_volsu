@@ -17,7 +17,7 @@
     <tbody>
     {% for record in result %}
         <tr>
-            <th scope="row">{{ record.shedule_id }}</th>
+            <th scope="row">{{ record.schedule_id }}</th>
             <td>{{ record.dep_station_name }}</td>
             <td>{{ record.dep_station_time }}</td>
             <td>{{ record.arr_station_name }}</td>
@@ -25,11 +25,11 @@
             <td>{{ record.id }}</td>
             <td>{{ record.firm }}</td>
             <td>{{ record.seria }}</td>
-            <td><a href="/database/delete_row/?table_name={{ table }}&del_id={{ record.id }}"><span
-                    class="svg-icons"><i class="fa fa-trash-alt"
-                                         aria-hidden="true"></i></span></a></td>
             <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
                                                        aria-hidden="true"></i></span></a></td>
+            <td><a href="{% url 'change_data' table record.schedule_id 'delete' %}"><span
+                    class="svg-icons"><i class="fa fa-trash-alt"
+                                         aria-hidden="true"></i></span></a></td>
         </tr>
     {% endfor %}
     </tbody>

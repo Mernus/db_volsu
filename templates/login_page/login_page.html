@@ -11,7 +11,25 @@
     {% load static %}
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
     <link rel="stylesheet" type="text/css" media="all" href={% static "login_page/css/style.css" %}>
-
+    <script crossorigin="anonymous">
+        function get_default_params() {
+            let host_input = document.getElementsByName("host")[0];
+            host_input.value = '{{ host }}';
+            host_input.readOnly = true;
+            let database_input = document.getElementsByName("database")[0];
+            database_input.value = '{{ database }}';
+            database_input.readOnly = true;
+            let user_input = document.getElementsByName("user")[0];
+            user_input.value = '{{ user }}';
+            user_input.readOnly = true;
+            let password_input = document.getElementsByName("password")[0];
+            password_input.value = '{{ password }}';
+            password_input.readOnly = true;
+            let port_input = document.getElementsByName("port")[0];
+            port_input.value = '{{ port }}';
+            port_input.readOnly = true;
+        }
+    </script>
 </head>
 <body>
 <div id='outer_main'>
@@ -48,11 +66,10 @@
                 </div>
                 <div class="btnn">
                     <button type="submit">Login</button>
-                    <button type="button" id="defaults">Load defaults</button>
+                    <button type="button" id="defaults" onclick="get_default_params()">Load defaults</button>
                 </div>
             </div>
         </form>
-        <script crossorigin="anonymous" src={% static "login_page/js/function.js" %}></script>
     </div>
 </div>
 </body>
