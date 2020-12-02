@@ -28,7 +28,7 @@ _SCHEDULE_ROW = "SELECT schedule.id AS schedule_id, " \
                "SELECT bus.id, bus_type.firm, bus_type.seria FROM bus " \
                "LEFT JOIN bus_depot AS bus_type ON bus_type.id = bus.bus_type_id " \
                ") " \
-               "AS bus ON bus.id = schedule.bus_id ORDER BY shedule_id;"
+               "AS bus ON bus.id = schedule.bus_id ORDER BY schedule_id;"
 
 _TICKET_ROW = "SELECT ticket.id AS ticket_id, " \
              "user_d.name AS customer_name, user_d.surname AS customer_surname, user_d.mail AS customer_mail, " \
@@ -61,8 +61,8 @@ _TICKET_ROW = "SELECT ticket.id AS ticket_id, " \
              ") " \
              "AS dep_station ON dep_station.st_id = ticket.route_id ORDER BY ticket_id;"
 
-DELETE_ROW = "DELETE FROM {table} WHERE {table}.id = {row_id};"
-UPDATE_ROW = "DELETE FROM {table} WHERE {table}.id = {row_id};"
+_DELETE_ROW = "DELETE FROM {table} WHERE {table}.id = {row_id};"
+_UPDATE_ROW = "UPDATE {table} SET {updated} WHERE {table}.id = {row_id};"
 
 PAGE_PATTERN_COMPILED = re.compile(r"page=(\d+)", re.UNICODE)
 
@@ -73,4 +73,9 @@ TABLE_LIST = {
     "bus": _BUS_ROW,
     "schedule": _SCHEDULE_ROW,
     "ticket": _TICKET_ROW
+}
+
+CHANGE_OPERATIONS = {
+    "delete": _DELETE_ROW,
+    "update": _UPDATE_ROW
 }

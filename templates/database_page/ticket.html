@@ -31,7 +31,7 @@
             <td>{{ record.arr_station_name }}</td>
             <td>{{ record.arr_station_time }}</td>
             <td>{{ record.ticket_cost }}</td>
-            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+            <td><a href="{% url 'change_data' table record.ticket_id 'update' %}?page={{ result.number }}"><span class="svg-icons"><i class="far fa-edit"
                                                        aria-hidden="true"></i></span></a></td>
             <td><a href="{% url 'change_data' table record.ticket_id 'delete' %}"><span
                     class="svg-icons"><i class="fa fa-trash-alt"

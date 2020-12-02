@@ -11,7 +11,7 @@ form {
 }
 
 body {
-    background: url("../images/database_background.webp") no-repeat center;
+    background-color: #DEE1ED;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -61,7 +61,6 @@ input[name="password"]:hover, input[name="port"]:hover {
 
 button {
     width: 100%;
-    background: #4baeea;
     outline: none;
     color: #000;
     font-size: 18px;
@@ -140,7 +139,7 @@ form, #login_img {
     flex-basis: 15%;
     height: 50px;
     display: block;
-    background: #4baeea;
+    background: #393963;
     text-align: center;
     line-height: 50px;
     color: #000;

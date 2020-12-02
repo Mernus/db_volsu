@@ -21,7 +21,7 @@
             <td>{{ record.mail }}</td>
             <td>{{ record.passport_seria_and_num }}</td>
             <td>{{ record.money }}</td>
-            <td><a href="#"><span class="svg-icons"><i class="far fa-edit"
+            <td><a href="{% url 'change_data' table record.id 'update' %}?page={{ result.number }}"><span class="svg-icons"><i class="far fa-edit"
                                                        aria-hidden="true"></i></span></a></td>
             <td><a href="{% url 'change_data' table record.id 'delete' %}"><span
                     class="svg-icons"><i class="fa fa-trash-alt"

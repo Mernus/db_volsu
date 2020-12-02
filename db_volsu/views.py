@@ -51,15 +51,17 @@ def get_table(request, table_name="bus_depot"):
         if connection is None:
             return redirect('login_page')
 
-        row = params.TABLE_LIST[table_name]
-        result = get_context(request, connection, row)
+        row = params.TABLE_LIST.get(table_name)
 
-        template_name = f"database_page/{table_name}.html"
-        request_context = {
-            "table": table_name,
-            "template": template_name,
-            "result": result
-        }
+        if row is not None:
+            result = get_context(request, connection, row)
+
+            template_name = f"database_page/{table_name}.html"
+            request_context = {
+                "table": table_name,
+                "template": template_name,
+                "result": result
+            }
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -75,9 +77,9 @@ def get_table(request, table_name="bus_depot"):
     return render(request, 'database_page/database.html', context=request_context)
 
 
-def change_data(request, table_name="bus_depot", row_id=None, operation=None):
+def change_data(request, table_name="bus_depot", row_id=None, operation=None, data=None):
     connection = None
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('page', 1)
 
     try:
         connection = connect_to_db()
@@ -88,9 +90,18 @@ def change_data(request, table_name="bus_depot", row_id=None, operation=None):
             return redirect(reverse('get_table', kwargs={'table_name': 'bus_depot'}) + f"?page={page_number}")
 
         with connection.cursor() as cursor:
-            row_template = params.DELETE_ROW if operation == "delete" else params.UPDATE_ROW
-            cursor.execute(row_template.format(table=table_name, row_id=row_id))
-            connection.commit()
+            row_template = params.CHANGE_OPERATIONS.get(operation)
+
+            if row_template is not None:
+                format_values = {
+                    "table": table_name,
+                    "row_id": row_id,
+                }
+
+                if operation == "update":
+                    format_values["updated"] = ""
+                cursor.execute(row_template.format(**format_values))
+                connection.commit()
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -104,6 +115,43 @@ def change_data(request, table_name="bus_depot", row_id=None, operation=None):
             print_success("Connection was closed")
 
     return redirect(reverse('get_table', kwargs={'table_name': 'bus_depot'}) + f"?page={page_number}")
+
+
+def update(request, table_name="bus_depot"):
+    if request.method == "POST":
+        data = {key: request.POST[key] for key in request.POST.keys()}
+        context = {
+            'table_name': 'bus_depot',
+            'row_id': request.GET.get('row_id'),
+            'operation': 'update',
+            'data': data
+        }
+
+        return redirect(reverse('change_data', kwargs=context))
+
+    connection, result = None, None
+    try:
+        connection = connect_to_db()
+        if connection is None:
+            return redirect('login_page')
+
+        row = params.TABLE_LIST.get(table_name)
+
+        if row is not None:
+            result = get_context(request, connection, row)
+
+    except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
+        cache.delete_many(["database", "user", "password"])
+        print_error(exception)
+        return redirect('login_page')
+
+    finally:
+        if connection and not connection.closed:
+            print_info("Disconnecting from database")
+            connection.close()
+            print_success("Connection was closed")
+
+    return render(request, 'update_page/update.html', context={"table": table_name, 'result': result})
 
 
 def connect_to_db():
