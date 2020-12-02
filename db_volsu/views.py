@@ -5,11 +5,10 @@ from configparser import ConfigParser
 from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from urllib.parse import urlencode
 
 from db_volsu import settings
 from db_volsu.configs import params
-from db_volsu.help_funcs.database_funcs import get_context
+from db_volsu.help_funcs.database_funcs import get_context, get_columns, get_context_by_id
 from db_volsu.help_funcs.exceptions import BadConnectionCredentials
 from db_volsu.help_funcs.print_funcs import print_success, print_info, print_error
 
@@ -77,7 +76,7 @@ def get_table(request, table_name="bus_depot"):
     return render(request, 'database_page/database.html', context=request_context)
 
 
-def change_data(request, table_name="bus_depot", row_id=None, operation=None, data=None):
+def change_data(request, table_name="bus_depot", row_id=None, operation=None):
     connection = None
     page_number = request.GET.get('page', 1)
 
@@ -99,7 +98,8 @@ def change_data(request, table_name="bus_depot", row_id=None, operation=None, da
                 }
 
                 if operation == "update":
-                    format_values["updated"] = ""
+                    data = request.GET.get('data')
+                    format_values["updated"] = data
                 cursor.execute(row_template.format(**format_values))
                 connection.commit()
 
@@ -118,27 +118,29 @@ def change_data(request, table_name="bus_depot", row_id=None, operation=None, da
 
 
 def update(request, table_name="bus_depot"):
+    page_number = request.GET.get('page', 1)
     if request.method == "POST":
-        data = {key: request.POST[key] for key in request.POST.keys()}
+        row_id = request.POST.get('id')
+        data = {key: request.POST[key] for key in request.POST.keys()
+                if key != 'id' and key != 'csrfmiddlewaretoken'}
+        str_data = ", ".join(f"{key} = '{value}'" for key, value in data.items())
         context = {
             'table_name': 'bus_depot',
-            'row_id': request.GET.get('row_id'),
-            'operation': 'update',
-            'data': data
+            'row_id': row_id,
+            'operation': 'update'
         }
 
-        return redirect(reverse('change_data', kwargs=context))
+        return redirect(reverse('change_data', kwargs=context) + f"?page={page_number}&data={str_data}")
 
-    connection, result = None, None
+    row_id = request.GET.get('row_id')
+    connection, column_result = None, None
     try:
         connection = connect_to_db()
         if connection is None:
             return redirect('login_page')
 
-        row = params.TABLE_LIST.get(table_name)
-
-        if row is not None:
-            result = get_context(request, connection, row)
+        column_result = get_columns(connection, table_name)
+        result = get_context_by_id(connection, table_name, row_id)
 
     except (Exception, BadConnectionCredentials, psycopg2.Error) as exception:
         cache.delete_many(["database", "user", "password"])
@@ -151,7 +153,10 @@ def update(request, table_name="bus_depot"):
             connection.close()
             print_success("Connection was closed")
 
-    return render(request, 'update_page/update.html', context={"table": table_name, 'result': result})
+    return render(request, 'update_page/update.html', context={"table": table_name,
+                                                               'row_id': row_id,
+                                                               'columns': column_result,
+                                                               'result': result})
 
 
 def connect_to_db():

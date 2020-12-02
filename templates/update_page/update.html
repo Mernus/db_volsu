@@ -25,10 +25,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Bellota:wght@700&display=swap" rel="stylesheet">
 
     {% load static %}
+    {% load get_by_index %}
     <!-- Icons -->
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" media="all" href={% static "database_page/css/style.css" %}>
+    <link rel="stylesheet" type="text/css" media="all" href={% static "update_page/css/style.css" %}>
 </head>
 <body>
 <div id="navs">
@@ -40,10 +42,28 @@
         <a id="nav-schedule-tab" href="{% url 'get_table' 'schedule' %}">Buses Schedule</a>
         <a id="nav-ticket-tab" href="{% url 'get_table' 'ticket' %}">Active tickets</a>
     </nav>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h1>Update row with id {{ row_id }} in {{ table }} table </h1>
+        <div class="login-w3ls">
+            {% for record in columns %}
+                <div class="icons">
+                    <label for="{{ record.column_name }}">{{ record.column_name|title }}:</label>
+                    {% ifequal record.column_name 'id' %}
+                        <input type="text" readonly name="{{ record.column_name }}" placeholder="{{ record.column_name }}"
+                               value="{{ result.0|get_by_index:forloop.counter0 }}">
+                    {% else %}
+                        <input type="text" name="{{ record.column_name }}" placeholder="{{ record.column_name }}"
+                               value="{{ result.0|get_by_index:forloop.counter0 }}">
+                    {% endifequal %}
+                </div>
+            {% endfor %}
 
-    <div class="custom_btn">
-        <button onclick="window.location.href='{% url 'disconnect' %}'">Disconnect</button>
-    </div>
+            <div class="btnn">
+                <button type="submit">Update</button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>

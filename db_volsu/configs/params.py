@@ -63,6 +63,8 @@ _TICKET_ROW = "SELECT ticket.id AS ticket_id, " \
 
 _DELETE_ROW = "DELETE FROM {table} WHERE {table}.id = {row_id};"
 _UPDATE_ROW = "UPDATE {table} SET {updated} WHERE {table}.id = {row_id};"
+COLUMNS_ROW = "SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '{table}';"
+IDSELECT_ROW = "SELECT * FROM {table} WHERE {table}.id = {row_id};"
 
 PAGE_PATTERN_COMPILED = re.compile(r"page=(\d+)", re.UNICODE)
 
