@@ -5,29 +5,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    {# Enable fontawesome #}
     <script src="https://kit.fontawesome.com/8d6423d7fb.js" crossorigin="anonymous"></script>
+    {# Enable fonts #}
     <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 
+    {# Enable fonts #}
     {% load static %}
     <link rel="shortcut icon" type="image/x-icon" media="all" href="{% static "favicon.ico" %}"/>
     <link rel="stylesheet" type="text/css" media="all" href={% static "login_page/css/style.css" %}>
+    <link rel="stylesheet" type="text/css" media="all" href={% static "login_page/css/custom_select.css" %}>
     <script crossorigin="anonymous">
         function get_default_params() {
-            let host_input = document.getElementsByName("host")[0];
-            host_input.value = '{{ host }}';
-            host_input.readOnly = true;
-            let database_input = document.getElementsByName("database")[0];
-            database_input.value = '{{ database }}';
-            database_input.readOnly = true;
-            let user_input = document.getElementsByName("user")[0];
-            user_input.value = '{{ user }}';
-            user_input.readOnly = true;
-            let password_input = document.getElementsByName("password")[0];
-            password_input.value = '{{ password }}';
-            password_input.readOnly = true;
-            let port_input = document.getElementsByName("port")[0];
+          let system = '{{ system }}';
+          let host_input = document.getElementsByName("host")[0];
+          host_input.value = '{{ host }}';
+          host_input.readOnly = true;
+          let database_input = document.getElementsByName("database")[0];
+          database_input.value = '{{ database }}';
+          database_input.readOnly = true;
+          let user_input = document.getElementsByName("user")[0];
+          user_input.value = '{{ user }}';
+          user_input.readOnly = true;
+          let password_input = document.getElementsByName("password")[0];
+          password_input.value = '{{ password }}';
+          password_input.readOnly = true;
+          let port_input = document.getElementsByName("port")[0];
+          if (system === 'psql') {
             port_input.value = '{{ port }}';
-            port_input.readOnly = true;
+          }
+          port_input.readOnly = true;
+          let system_input = document.getElementsByName("system")[0];
+          system_input.value = system;
+          system_input.readOnly = true;
+          disable_port()
+        }
+
+        function disable_port() {
+          let system = document.getElementsByName("system")[0];
+          let port_input = document.getElementsByName("port")[0];
+          if (system.value === 'mongo') {
+            port_input.parentElement.style.display = 'none';
+          }
+          else {
+            port_input.parentElement.style.display = 'flex';
+          }
         }
     </script>
 </head>
@@ -63,6 +85,13 @@
                     <input type="text" name="port" placeholder="Port">
                     <span class="svg-icons"><span class="fa fa-unlock-alt" aria-hidden="true"></span></span>
                     <div class="clear"></div>
+                </div>
+                <div class="icons">
+                    <select class="form-select" name="system" onchange="disable_port()">
+                        <option disabled>Choose database system:</option>
+                        <option value="psql">PostgreSQL</option>
+                        <option value="mongo">MongoDB</option>
+                    </select>
                 </div>
                 <div class="btnn">
                     <button type="submit">Login</button>

@@ -36,7 +36,7 @@ input {
 }
 
 input[name="host"], input[name="database"], input[name="user"],
-input[name="password"], input[name="port"] {
+input[name="password"], input[name="port"], input[name="system"] {
     -webkit-flex-basis: 90%;
     flex-basis: 90%;
     color: #000;
@@ -55,7 +55,7 @@ input[name="password"], input[name="port"] {
 }
 
 input[name="host"]:hover, input[name="database"]:hover, input[name="user"]:hover,
-input[name="password"]:hover, input[name="port"]:hover {
+input[name="password"]:hover, input[name="port"]:hover, input[name="system"]:hover {
     border: 1px solid #6755C9;
 }
 
@@ -216,7 +216,7 @@ form, #login_img {
     }
 
     input[name="host"], input[name="database"], input[name="user"],
-    input[name="password"], input[name="port"] {
+    input[name="password"], input[name="port"], input[name="system"] {
         padding: 10px 12px;
     }
 }

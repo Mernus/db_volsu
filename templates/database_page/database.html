@@ -43,7 +43,9 @@
         <a id="nav-ticket-tab" href="{% url 'get_table' 'ticket' %}">Active tickets</a>
     </nav>
 
-    {% include template %}
+    <div class="table-responsive">
+        {% include template %}
+    </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center pagination-sm">

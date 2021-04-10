@@ -23,7 +23,7 @@
             <td>{{ record.num_in_depot }}</td>
             <td><a href="{% url 'update_page' table %}?row_id={{ record.id }}&page={{ result.number }}"><span class="svg-icons"><i class="far fa-edit"
                                                        aria-hidden="true"></i></span></a></td>
-            <td><a href="{% url 'change_data' table record.id 'delete' %}?page={{ result.number }}"><span
+            <td><a href=""><span
                     class="svg-icons"><i class="fa fa-trash-alt"
                                          aria-hidden="true"></i></span></a></td>
         </tr>

@@ -1,0 +1,12 @@
+select {
+    -webkit-flex-basis: 100%;
+    flex-basis: 100%;
+    padding: 12px 12px;
+    border-radius: 10px;
+}
+
+select, option {
+    font-family: 'Poiret One', cursive;
+    font-size: 17px;
+    font-weight: 700;
+}
