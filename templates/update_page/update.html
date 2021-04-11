@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Update data</title>
+    <title>{{ operation|title }} data</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="//fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
@@ -44,7 +44,7 @@
     </nav>
     <form action="" method="post">
         {% csrf_token %}
-        <h1>Update row with id {{ row_id }} in {{ table }} table </h1>
+        <h1>{{ operation|title }} row with id {{ row_id }} in {{ table }} table </h1>
         <div class="login-w3ls">
             {% for record in columns %}
                 <div class="icons">
@@ -61,7 +61,7 @@
             <input type="hidden" value="{{ row_id }}" name="row_id">
 
             <div class="btnn">
-                <button type="submit">Update</button>
+                <button type="submit">{{ operation }}</button>
             </div>
         </div>
     </form>

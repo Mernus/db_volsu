@@ -32,20 +32,20 @@ def _fetch_mongo(docs, return_columns=False):
     return docs_list, result_columns
 
 
-def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None):
+def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None, all_data=False):
     columns = None
 
     if mongo:
-        return_columns = False
-
         if row_id:
             object_id = ObjectId(row_id)
             docs = [connection.find_one({"_id": object_id})]
-            return_columns = True
         else:
             docs = connection.find()
 
-        result, columns = _fetch_mongo(docs, return_columns)
+        result, columns = _fetch_mongo(docs, not all_data)
+        if not all_data and not row_id:
+            # Bad idea, but no time to good decision
+            return None, columns
 
     else:
         with connection.cursor() as cursor:
@@ -56,7 +56,7 @@ def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None):
 
 
 def get_context(request, connection, sql_raw=None, mongo=False):
-    result, _ = _fetch_all(connection, sql_raw, mongo)
+    result, _ = _fetch_all(connection, sql_raw, mongo, all_data=True)
 
     paginator = Paginator(result, 5)
     page_number = request.GET.get('page')

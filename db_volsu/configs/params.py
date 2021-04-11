@@ -11,4 +11,5 @@ ALL_PARAMS = CONNECTION_PARAMS.union({"system"})
 
 MONGO_URI = "mongodb+srv://{user}:{password}@{host}/{database}?retryWrites=true&w=majority"
 
-PERMITTED_OPERATIONS = ["update", "delete"]
+GET_OPERATIONS = ["delete"]
+PERMITTED_OPERATIONS = ["update", "add"] + GET_OPERATIONS

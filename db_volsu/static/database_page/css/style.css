@@ -50,10 +50,6 @@ button {
     padding: 0 0.15em;
 }
 
-#menu a + a {
-    border-left: 0.08em solid;
-}
-
 .svg-icons {
     -webkit-flex-basis: 15%;
     flex-basis: 15%;

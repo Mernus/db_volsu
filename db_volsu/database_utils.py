@@ -7,11 +7,24 @@ from django.core.cache import cache
 from django.shortcuts import redirect
 from pymongo.errors import ConnectionFailure
 
+from db_volsu.configs.mongo_params import TYPES, TYPES_CONVERTER
 from db_volsu.configs.params import CONNECTION_PARAMS, MONGO_URI, PERMITTED_OPERATIONS
 from db_volsu.configs.psql_params import CHANGE_OPERATIONS
 from db_volsu.help_funcs.exceptions import BadConnectionCredentials
 from db_volsu.help_funcs.print_funcs import print_error, print_info, print_success
 from db_volsu.utils import clear_cache, close_connection
+
+
+def convert_for_mongo(data):
+    for key, value in data.items():
+        data[key] = TYPES_CONVERTER[get_type(key)](value)
+
+
+def get_type(column_name):
+    for mongo_type, columns in TYPES.items():
+        if column_name in columns:
+            return mongo_type
+    return 'str'
 
 
 def perform_operation(data, operation, row_id, table_name="bus_depot"):
@@ -28,7 +41,11 @@ def perform_operation(data, operation, row_id, table_name="bus_depot"):
             if operation == "delete":
                 connection[table_name].delete_one({'_id': object_id})
             else:
-                connection[table_name].update_one({'_id': object_id}, {'$set': data})
+                convert_for_mongo(data)
+                if operation == "update":
+                    connection[table_name].update_one({'_id': object_id}, {'$set': data})
+                else:
+                    connection[table_name].insert_one(data)
 
         else:
             with connection.cursor() as cursor:
@@ -43,6 +60,8 @@ def perform_operation(data, operation, row_id, table_name="bus_depot"):
                     if operation == "update":
                         str_data = ", ".join(f"{key} = '{value}'" for key, value in data.items())
                         format_values["updated"] = str_data
+                    elif operation == "add":
+                        raise NotImplemented
 
                     cursor.execute(row_template.format(**format_values))
                     connection.commit()

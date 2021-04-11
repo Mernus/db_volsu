@@ -47,6 +47,12 @@
         {% include template %}
     </div>
 
+    <div class="custom_btn" style="display: flex;margin-top: 0;margin-bottom: 1em;">
+        <button style="width: 100%;" onclick="location.href='{% url 'change_data' table 'add' %}'" type="button">
+            Add data
+        </button>
+    </div>
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center pagination-sm">
             {% if result.has_previous %}

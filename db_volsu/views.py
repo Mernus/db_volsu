@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from db_volsu.configs import psql_params
+from db_volsu.configs.params import GET_OPERATIONS
 from db_volsu.database_utils import connect_to_db, perform_operation
 from db_volsu.help_funcs.database_funcs import get_context, get_columns, get_context_by_id
 from db_volsu.help_funcs.exceptions import BadConnectionCredentials
@@ -60,10 +61,10 @@ def get_table(request, table_name="bus_depot"):
 def change_data(request, table_name="bus_depot", operation=None):
     page_number = request.GET.get('page', 1)
     row_id = request.GET.get('row_id')
-    if row_id is None:
+    if row_id is None and operation != 'add':
         return redirect(reverse('get_table', kwargs={'table_name': 'bus_depot'}) + f"?page={page_number}")
 
-    if request.method == "POST" or operation == "delete":
+    if request.method == "POST" or operation in GET_OPERATIONS:
         data = {key: request.POST[key] for key in request.POST.keys()
                 if key != 'row_id' and key != 'csrfmiddlewaretoken'}
         perform_operation(data, operation, row_id, table_name)
@@ -92,7 +93,8 @@ def change_data(request, table_name="bus_depot", operation=None):
     return render(request, 'update_page/update.html', context={"table": table_name,
                                                                'row_id': row_id,
                                                                'columns': column_result,
-                                                               'result': result})
+                                                               'result': result,
+                                                               'operation': operation})
 
 
 def disconnect(request):
