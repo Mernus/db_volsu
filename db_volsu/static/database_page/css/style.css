@@ -47,7 +47,11 @@ button {
 }
 
 #menu > a {
-    padding-right: 0.3em;
+    padding: 0 0.15em;
+}
+
+#menu a + a {
+    border-left: 0.08em solid;
 }
 
 .svg-icons {

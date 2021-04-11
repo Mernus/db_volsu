@@ -4,11 +4,10 @@ from bson import ObjectId
 
 from db_volsu.configs.psql_params import COLUMNS_ROW, IDSELECT_ROW
 
-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
-def _fetch_all(cursor):
+def _fetch_psql(cursor):
     desc = cursor.description
     nt_result = namedtuple('Result', [col[0] for col in desc])
     return [nt_result(*row) for row in cursor.fetchall()]
@@ -17,28 +16,47 @@ def _fetch_all(cursor):
 def _fetch_mongo(docs, return_columns=False):
     columns = list(docs[0].keys())
     columns.remove('_id')
-    columns.append('id')
+    if not return_columns:
+        columns.insert(0, 'id')
 
     result_columns = deepcopy(columns) if return_columns else None
     nt_result = namedtuple('Result', columns)
 
     docs_list = []
     for doc in docs:
-        doc['id'] = str(doc.pop('_id'))
+        doc_id = doc.pop('_id')
+        if not return_columns:
+            doc['id'] = str(doc_id)
         docs_list.append(nt_result(**doc))
 
     return docs_list, result_columns
 
 
-def get_context(request, connection, sql_raw=None, mongo=False):
+def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None):
+    columns = None
+
     if mongo:
-        docs = connection.find()
-        result, _ = _fetch_mongo(docs)
+        return_columns = False
+
+        if row_id:
+            object_id = ObjectId(row_id)
+            docs = [connection.find_one({"_id": object_id})]
+            return_columns = True
+        else:
+            docs = connection.find()
+
+        result, columns = _fetch_mongo(docs, return_columns)
 
     else:
         with connection.cursor() as cursor:
             cursor.execute(sql_raw)
-            result = _fetch_all(cursor)
+            result = _fetch_psql(cursor)
+
+    return result, columns
+
+
+def get_context(request, connection, sql_raw=None, mongo=False):
+    result, _ = _fetch_all(connection, sql_raw, mongo)
 
     paginator = Paginator(result, 5)
     page_number = request.GET.get('page')
@@ -55,31 +73,24 @@ def get_context(request, connection, sql_raw=None, mongo=False):
 
 def get_columns(connection, table_name='bus_depot'):
     column_row = COLUMNS_ROW.format(table=table_name)
-
-    with connection.cursor() as cursor:
-        cursor.execute(column_row)
-        result = _fetch_all(cursor)
+    result, _ = _fetch_all(connection, column_row)
 
     return result
 
 
 def get_context_by_id(connection, table_name='bus_depot', row_id=None, mongo=False):
-    if mongo:
-        object_id = ObjectId(row_id)
-        row = connection.find_one({"_id": object_id})
+    if not mongo:
+        row = IDSELECT_ROW.format(table=table_name, row_id=row_id)
 
-        result, columns = _fetch_mongo([row], return_columns=True)
-        columns.remove('id')
+        with connection.cursor() as cursor:
+            cursor.execute(row)
+            result = _fetch_psql(cursor)
 
-        nt = namedtuple('Column', 'column_name')
-        columns = [nt(col) for col in columns]
+        return result
 
-        return columns, result
+    result, columns = _fetch_all(connection, mongo=True, row_id=row_id)
 
-    row = IDSELECT_ROW.format(table=table_name, row_id=row_id)
+    nt = namedtuple('Column', 'column_name')
+    columns = [nt(col) for col in columns]
 
-    with connection.cursor() as cursor:
-        cursor.execute(row)
-        result = _fetch_all(cursor)
-
-    return result
+    return columns, result
