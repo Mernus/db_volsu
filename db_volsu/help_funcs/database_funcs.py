@@ -13,7 +13,7 @@ def _fetch_psql(cursor):
     return [nt_result(*row) for row in cursor.fetchall()]
 
 
-def _fetch_mongo(docs, return_columns=False):
+def _fetch_mongo(docs, return_columns=False, search_filter=None):
     columns = list(docs[0].keys())
     columns.remove('_id')
     if not return_columns:
@@ -27,12 +27,23 @@ def _fetch_mongo(docs, return_columns=False):
         doc_id = doc.pop('_id')
         if not return_columns:
             doc['id'] = str(doc_id)
-        docs_list.append(nt_result(**doc))
+
+        add = True
+        if search_filter:
+            add = False
+
+            for column, value in doc.items():
+                if search_filter in str(value):
+                    add = True
+                    break
+
+        if add:
+            docs_list.append(nt_result(**doc))
 
     return docs_list, result_columns
 
 
-def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None, all_data=False):
+def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None, all_data=False, search_filter=None):
     columns = None
 
     if mongo:
@@ -42,7 +53,7 @@ def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None, all_data=Fals
         else:
             docs = connection.find()
 
-        result, columns = _fetch_mongo(docs, not all_data)
+        result, columns = _fetch_mongo(docs, not all_data, search_filter)
         if not all_data and not row_id:
             # Bad idea, but no time to good decision
             return None, columns
@@ -55,8 +66,8 @@ def _fetch_all(connection, sql_raw=None, mongo=False, row_id=None, all_data=Fals
     return result, columns
 
 
-def get_context(request, connection, sql_raw=None, mongo=False):
-    result, _ = _fetch_all(connection, sql_raw, mongo, all_data=True)
+def get_context(request, connection, sql_raw=None, mongo=False, search_filter=None):
+    result, _ = _fetch_all(connection, sql_raw, mongo, all_data=True, search_filter=search_filter)
 
     paginator = Paginator(result, 5)
     page_number = request.GET.get('page')

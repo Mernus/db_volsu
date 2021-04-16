@@ -30,6 +30,7 @@ def get_table(request, table_name="bus_depot"):
     try:
         connection = connect_to_db()
 
+        search_filter = request.GET.get('search')
         database_system = cache.get('system')
         result = None
         if database_system == "psql":
@@ -38,14 +39,19 @@ def get_table(request, table_name="bus_depot"):
                 result = get_context(request, connection, row)
 
         else:
-            result = get_context(request, connection[table_name], mongo=True)
+            result = get_context(request, connection[table_name], mongo=True, search_filter=search_filter)
 
         template_name = f"database_page/{table_name}.html"
         request_context = {
-            "table": table_name,
-            "template": template_name,
-            "result": result
+            'table': table_name,
+            'result': result
         }
+
+        if search_filter is not None:
+            base_template = template_name
+        else:
+            base_template = "database_page/database.html"
+            request_context['template'] = template_name
 
     except (BadConnectionCredentials, psycopg2.Error, Exception) as exception:
         clear_cache()
@@ -55,7 +61,7 @@ def get_table(request, table_name="bus_depot"):
     finally:
         close_connection(connection)
 
-    return render(request, 'database_page/database.html', context=request_context)
+    return render(request, base_template, context=request_context)
 
 
 def change_data(request, table_name="bus_depot", operation=None):
