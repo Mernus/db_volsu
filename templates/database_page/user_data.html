@@ -1,33 +1,77 @@
-<table class="table table-hover table-bordered">
-    <caption>Active users</caption>
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Surname</th>
-        <th scope="col">Mail</th>
-        <th scope="col">Passport seria and num</th>
-        <th scope="col">Money</th>
-        <th scope="col">Edit row</th>
-        <th scope="col">Delete row</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for record in result %}
+<div class="table-responsive" id="template_table">
+    <table class="table table-hover table-bordered">
+        <caption>Active users</caption>
+        <thead class="thead-dark">
         <tr>
-            <th scope="row">{{ record.id }}</th>
-            <td>{{ record.name }}</td>
-            <td>{{ record.surname }}</td>
-            <td>{{ record.mail }}</td>
-            <td>{{ record.passport_seria_and_num }}</td>
-            <td>{{ record.money }}</td>
-            <td><a href="{% url 'change_data' table 'update' %}?row_id={{ record.id }}&page={{ result.number }}"><span
-                    class="svg-icons"><i class="far fa-edit"
-                                         aria-hidden="true"></i></span></a></td>
-            <td><a href="{% url 'change_data' table 'delete' %}?row_id={{ record.id }}&page={{ result.number }}"><span
-                    class="svg-icons"><i class="fa fa-trash-alt"
-                                         aria-hidden="true"></i></span></a></td>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Passport seria and num</th>
+            <th scope="col">Money</th>
+            <th scope="col">Edit row</th>
+            <th scope="col">Delete row</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for record in result %}
+            <tr>
+                <th scope="row">{{ record.id }}</th>
+                <td>{{ record.name }}</td>
+                <td>{{ record.surname }}</td>
+                <td>{{ record.mail }}</td>
+                <td>{{ record.passport_seria_and_num }}</td>
+                <td>{{ record.money }}</td>
+                <td><a href="{% url 'change_data' table 'update' %}?row_id={{ record.id }}&page={{ result.number }}"><span
+                        class="svg-icons"><i class="far fa-edit"
+                                             aria-hidden="true"></i></span></a></td>
+                <td><a href="{% url 'change_data' table 'delete' %}?row_id={{ record.id }}&page={{ result.number }}"><span
+                        class="svg-icons"><i class="fa fa-trash-alt"
+                                             aria-hidden="true"></i></span></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="custom_btn" style="display: flex;margin-top: 0;margin-bottom: 1em;">
+        <button style="width: 100%;" onclick="location.href='{% url 'change_data' table 'add' %}'" type="button">
+            Add data
+        </button>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center pagination-sm">
+            {% if result.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'get_table' table %}?page={{ result.previous_page_number }}">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Previous</a>
+                </li>
+            {% endif %}
+            {% for page in result.paginator.page_range %}
+                {% ifequal page result.number %}
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }} <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endifequal %}
+            {% endfor %}
+            {% if result.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="{% url 'get_table' table %}?page={{ result.next_page_number }}">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>

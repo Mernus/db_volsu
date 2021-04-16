@@ -38,7 +38,7 @@
 
             $('#search').keyup(function() {
                 clearTimeout($.data(this, 'timer'));
-                $(this).data('timer', setTimeout(search, 1000));
+                $(this).data('timer', setTimeout(search, 700));
             });
         });
 
@@ -70,51 +70,7 @@
 
     <input type="text" placeholder="Search.." id="search">
 
-    <div class="table-responsive" id="template_table">
-        {% include template %}
-    </div>
-
-    <div class="custom_btn" style="display: flex;margin-top: 0;margin-bottom: 1em;">
-        <button style="width: 100%;" onclick="location.href='{% url 'change_data' table 'add' %}'" type="button">
-            Add data
-        </button>
-    </div>
-
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center pagination-sm">
-            {% if result.has_previous %}
-                <li class="page-item">
-                    <a class="page-link"
-                       href="{% url 'get_table' table %}?page={{ result.previous_page_number }}">Previous</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Previous</a>
-                </li>
-            {% endif %}
-            {% for page in result.paginator.page_range %}
-                {% ifequal page result.number %}
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }} <span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                        <a class="page-link" href="{% url 'get_table' table %}?page={{ page }}">{{ page }}</a>
-                    </li>
-                {% endifequal %}
-            {% endfor %}
-            {% if result.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="{% url 'get_table' table %}?page={{ result.next_page_number }}">Next</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
+    {% include template %}
 
     <div class="custom_btn">
         <button onclick="window.location.href='{% url 'disconnect' %}'">Disconnect</button>
